@@ -1,0 +1,7 @@
+[17-Jan-2020 04:07:34 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
+[17-Jan-2020 04:07:58 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
+[17-Jan-2020 04:08:20 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
+[17-Jan-2020 04:16:07 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
+[17-Jan-2020 04:56:06 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
+[17-Jan-2020 04:56:27 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
+[25-Feb-2020 08:30:51 UTC] PHP Fatal error:  Trait 'Laravel\Passport\HasApiTokens' not found in /home/zioyncom/zioyn/app/Models/Auth/User.php on line 16
