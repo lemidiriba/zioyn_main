@@ -5,8 +5,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @endlangrtl
 
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
+<head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', app_name())</title>
@@ -20,31 +20,24 @@
     <!-- Check if the language is set to RTL, so apply the RTL layouts -->
     <!-- Otherwise apply the normal LTR layouts -->
     {{ style(mix('css/backend.css')) }}
+    <link rel="stylesheet" href="{{ asset('./css/jquery.dataTables.min.css') }}">
 
-    @stack('after-styles')
     {{-- used for datatable --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/buttons.dataTables.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/select.dataTables.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/responsive.dataTables.css') }}" />
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157345395-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    {{-- <script src="{{ asset('./js/template/jquery-2.0.0.min.js') }}" type="text/javascript"></script> --}} --}}
     
-      gtag('config', 'UA-157345395-1');
-    </script>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
 
 
-    <script type="text/javascript" src="{{ asset('js/datatables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/dataTables.buttons.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/dataTables.select.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/dataTables.responsive.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/dataTables.altEditor.free.js') }}"></script>
- 
 
+
+
+    @stack('after-styles')
 </head>
 
 {{--
@@ -90,6 +83,8 @@
                     <!--content-header-->
 
                     @include('includes.partials.messages')
+                    @include('sweetalert::alert')
+
                     @yield('content')
                 </div>
                 <!--animated-->
@@ -105,16 +100,43 @@
     @include('backend.includes.footer')
 
     <!-- Scripts -->
-
     @stack('before-scripts')
     {!! script(mix('js/manifest.js')) !!}
     {!! script(mix('js/vendor.js')) !!}
     {!! script(mix('js/backend.js')) !!}
     @stack('after-scripts')
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="{{ asset('./js/template/vendor/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ asset('./js/template/popper.min.js') }}"></script>
+    <script src="{{ asset('./js/template/bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('./js/template/datatables.min.js') }}"></script>
+    {{-- <script src="{{ asset('./js/template/jquery.dataTables.min.js') }}"></script> --}}
+
+    <script type="text/javascript" src="{{ asset('./js/template/dataTables.buttons.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('./js/template/dataTables.select.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('./js/template/dataTables.responsive.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('./js/template/dataTables.altEditor.free.js') }}"></script>
+
+    <script src="{{ asset('./js/template/dataTables.altEditor.free.js') }}"></script>
     
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
+    
+
+<script>
+  const beamsClient = new PusherPushNotifications.Client({
+    instanceId: '44abaf83-88f3-4cdd-b5af-9dd99b7e0fd7',
+  });
+
+  beamsClient.start()
+    .then(() => beamsClient.addDeviceInterest('hello'))
+    .then(() => console.log('Successfully registered and subscribed!'))
+    .catch(console.error);
+</script>
+
+
+
+
 
 </body>
-
 
 </html>

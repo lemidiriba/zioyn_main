@@ -104,8 +104,9 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
 
     /**
-     * @param int $startIndex
-     * @param int $endIndex
+     * @param Tokens $tokens
+     * @param int    $startIndex
+     * @param int    $endIndex
      */
     private function applyCasing(Tokens $tokens, $startIndex, $endIndex)
     {
@@ -149,7 +150,8 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return bool
      */
@@ -182,7 +184,8 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return bool
      */
@@ -205,7 +208,8 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return bool
      */
@@ -217,7 +221,8 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return int
      */
@@ -231,7 +236,8 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
 
     /**
-     * @param int $docBlockIndex
+     * @param Tokens $tokens
+     * @param int    $docBlockIndex
      */
     private function updateDocBlock(Tokens $tokens, $docBlockIndex)
     {

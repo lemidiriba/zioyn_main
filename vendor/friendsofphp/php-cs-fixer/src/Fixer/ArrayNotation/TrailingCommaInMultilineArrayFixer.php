@@ -104,7 +104,8 @@ SAMPLE
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      */
     private function fixArray(Tokens $tokens, $index)
     {

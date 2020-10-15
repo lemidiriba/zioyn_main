@@ -21,7 +21,6 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Preg;
-use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
@@ -182,8 +181,9 @@ class Sample
      * Deals with comments, PHPDocs and spaces above the element with respect to the position of the
      * element within the class, interface or trait.
      *
-     * @param int $classEndIndex
-     * @param int $elementEndIndex
+     * @param Tokens $tokens
+     * @param int    $classEndIndex
+     * @param int    $elementEndIndex
      */
     private function fixSpaceBelowClassElement(Tokens $tokens, $classEndIndex, $elementEndIndex)
     {
@@ -208,8 +208,9 @@ class Sample
      * Deals with comments, PHPDocs and spaces above the method with respect to the position of the
      * method within the class or trait.
      *
-     * @param int $classEndIndex
-     * @param int $elementEndIndex
+     * @param Tokens $tokens
+     * @param int    $classEndIndex
+     * @param int    $elementEndIndex
      */
     private function fixSpaceBelowClassMethod(Tokens $tokens, $classEndIndex, $elementEndIndex)
     {
@@ -224,14 +225,13 @@ class Sample
      * Deals with comments, PHPDocs and spaces above the element with respect to the position of the
      * element within the class, interface or trait.
      *
-     * @param int $classStartIndex index of the class Token the element is in
-     * @param int $elementIndex    index of the element to fix
+     * @param Tokens $tokens
+     * @param int    $classStartIndex index of the class Token the element is in
+     * @param int    $elementIndex    index of the element to fix
      */
     private function fixSpaceAboveClassElement(Tokens $tokens, $classStartIndex, $elementIndex)
     {
-        static $methodAttr = [T_PRIVATE, T_PROTECTED, T_PUBLIC, T_ABSTRACT, T_FINAL, T_STATIC, T_STRING, T_NS_SEPARATOR, T_VAR, CT::T_NULLABLE_TYPE];
-
-        $nonWhiteAbove = null;
+        static $methodAttr = [T_PRIVATE, T_PROTECTED, T_PUBLIC, T_ABSTRACT, T_FINAL, T_STATIC];
 
         // find out where the element definition starts
         $firstElementAttributeIndex = $elementIndex;
@@ -296,9 +296,10 @@ class Sample
     }
 
     /**
-     * @param int $startIndex
-     * @param int $endIndex
-     * @param int $reqLineCount
+     * @param Tokens $tokens
+     * @param int    $startIndex
+     * @param int    $endIndex
+     * @param int    $reqLineCount
      */
     private function correctLineBreaks(Tokens $tokens, $startIndex, $endIndex, $reqLineCount = 2)
     {
@@ -351,8 +352,9 @@ class Sample
     }
 
     /**
-     * @param int $whiteSpaceStartIndex
-     * @param int $whiteSpaceEndIndex
+     * @param Tokens $tokens
+     * @param int    $whiteSpaceStartIndex
+     * @param int    $whiteSpaceEndIndex
      *
      * @return int
      */
@@ -367,7 +369,8 @@ class Sample
     }
 
     /**
-     * @param int $commentIndex
+     * @param Tokens $tokens
+     * @param int    $commentIndex
      *
      * @return int
      */

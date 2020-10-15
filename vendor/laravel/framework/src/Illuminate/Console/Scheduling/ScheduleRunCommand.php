@@ -4,7 +4,6 @@ namespace Illuminate\Console\Scheduling;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\Events\ScheduledTaskFinished;
-use Illuminate\Console\Events\ScheduledTaskSkipped;
 use Illuminate\Console\Events\ScheduledTaskStarting;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Date;
@@ -49,7 +48,7 @@ class ScheduleRunCommand extends Command
     /**
      * The event dispatcher.
      *
-     * @var \Illuminate\Contracts\Events\Dispatcher
+     * @var \Illuminate\Contracts\Notifications\Dispatcher
      */
     protected $dispatcher;
 
@@ -79,8 +78,6 @@ class ScheduleRunCommand extends Command
 
         foreach ($this->schedule->dueEvents($this->laravel) as $event) {
             if (! $event->filtersPass($this->laravel)) {
-                $this->dispatcher->dispatch(new ScheduledTaskSkipped($event));
-
                 continue;
             }
 

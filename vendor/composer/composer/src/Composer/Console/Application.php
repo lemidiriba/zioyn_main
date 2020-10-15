@@ -113,10 +113,6 @@ class Application extends BaseApplication
     {
         $this->disablePluginsByDefault = $input->hasParameterOption('--no-plugins');
 
-        if (getenv('COMPOSER_NO_INTERACTION')) {
-            $input->setInteractive(false);
-        }
-
         $io = $this->io = new ConsoleIO($input, $output, new HelperSet(array(
             new QuestionHelper(),
         )));
@@ -212,7 +208,11 @@ class Application extends BaseApplication
                 $io->writeError(sprintf('<warning>Warning: This development build of composer is over 60 days old. It is recommended to update it by running "%s self-update" to get the latest version.</warning>', $_SERVER['PHP_SELF']));
             }
 
-            if (!Platform::isWindows() && function_exists('exec') && !getenv('COMPOSER_ALLOW_SUPERUSER') && !file_exists('/.dockerenv')) {
+            if (getenv('COMPOSER_NO_INTERACTION')) {
+                $input->setInteractive(false);
+            }
+
+            if (!Platform::isWindows() && function_exists('exec') && !getenv('COMPOSER_ALLOW_SUPERUSER')) {
                 if (function_exists('posix_getuid') && posix_getuid() === 0) {
                     if ($commandName !== 'self-update' && $commandName !== 'selfupdate') {
                         $io->writeError('<warning>Do not run Composer as root/super user! See https://getcomposer.org/root for details</warning>');

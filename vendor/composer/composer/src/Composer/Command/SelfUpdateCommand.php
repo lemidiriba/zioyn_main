@@ -254,8 +254,6 @@ TAGSPUBKEY
         } else {
             $io->writeError('<warning>A backup of the current version could not be written to '.$backupFile.', no rollback possible</warning>');
         }
-
-        return 0;
     }
 
     protected function fetchKeys(IOInterface $io, Config $config)

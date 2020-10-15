@@ -3,36 +3,26 @@
 namespace Illuminate\Auth\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Routing\Redirector;
 
 class RequirePassword
 {
     /**
-     * The response factory instance.
+     * The Redirector instance.
      *
-     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     * @var \Illuminate\Routing\Redirector
      */
-    protected $responseFactory;
-
-    /**
-     * The URL generator instance.
-     *
-     * @var \Illuminate\Contracts\Routing\UrlGenerator
-     */
-    protected $urlGenerator;
+    protected $redirector;
 
     /**
      * Create a new middleware instance.
      *
-     * @param  \Illuminate\Contracts\Routing\ResponseFactory  $responseFactory
-     * @param  \Illuminate\Contracts\Routing\UrlGenerator  $urlGenerator
+     * @param  \Illuminate\Routing\Redirector  $redirector
      * @return void
      */
-    public function __construct(ResponseFactory $responseFactory, UrlGenerator $urlGenerator)
+    public function __construct(Redirector $redirector)
     {
-        $this->responseFactory = $responseFactory;
-        $this->urlGenerator = $urlGenerator;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -40,20 +30,14 @@ class RequirePassword
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $redirectToRoute
+     * @param  string  $redirectToRoute
      * @return mixed
      */
     public function handle($request, Closure $next, $redirectToRoute = null)
     {
         if ($this->shouldConfirmPassword($request)) {
-            if ($request->expectsJson()) {
-                return $this->responseFactory->json([
-                    'message' => 'Password confirmation required.',
-                ], 423);
-            }
-
-            return $this->responseFactory->redirectGuest(
-                $this->urlGenerator->route($redirectToRoute ?? 'password.confirm')
+            return $this->redirector->guest(
+                $this->redirector->getUrlGenerator()->route($redirectToRoute ?? 'password.confirm')
             );
         }
 

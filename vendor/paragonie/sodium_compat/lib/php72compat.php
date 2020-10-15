@@ -1,7 +1,5 @@
 <?php
 
-require_once dirname(dirname(__FILE__)) . '/autoload.php';
-
 /**
  * This file will monkey patch the pure-PHP implementation in place of the
  * PECL functions and constants, but only if they do not already exist.
@@ -89,7 +87,7 @@ foreach (array(
     'VERSION_STRING'
     ) as $constant
 ) {
-    if (!defined("SODIUM_$constant") && defined("ParagonIE_Sodium_Compat::$constant")) {
+    if (!defined("SODIUM_$constant")) {
         define("SODIUM_$constant", constant("ParagonIE_Sodium_Compat::$constant"));
     }
 }

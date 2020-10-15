@@ -152,8 +152,6 @@ EOT
         if ($input->isInteractive() && $this->hasDependencies($options) && $io->askConfirmation($question, true)) {
             $this->installDependencies($output);
         }
-
-        return 0;
     }
 
     /**

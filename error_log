@@ -1,7 +1,5 @@
-[17-Jan-2020 04:07:34 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
-[17-Jan-2020 04:07:58 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
-[17-Jan-2020 04:08:20 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
-[17-Jan-2020 04:16:07 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
-[17-Jan-2020 04:56:06 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
-[17-Jan-2020 04:56:27 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/zioyncom/zioyn/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
-[25-Feb-2020 08:30:51 UTC] PHP Fatal error:  Trait 'Laravel\Passport\HasApiTokens' not found in /home/zioyncom/zioyn/app/Models/Auth/User.php on line 16
+[15-Jun-2020 20:53:12 UTC] PHP Fatal error:  Allowed memory size of 1610612736 bytes exhausted (tried to allocate 4096 bytes) in phar:///opt/cpanel/composer/bin/composer/src/Composer/DependencyResolver/RuleWatchGraph.php on line 52
+[15-Jun-2020 20:59:42 UTC] PHP Fatal error:  Allowed memory size of 1610612736 bytes exhausted (tried to allocate 4096 bytes) in phar:///opt/cpanel/composer/bin/composer/src/Composer/DependencyResolver/RuleWatchGraph.php on line 52
+[15-Jun-2020 21:37:53 UTC] PHP Fatal error:  Allowed memory size of 1610612736 bytes exhausted (tried to allocate 4096 bytes) in phar:///opt/cpanel/composer/bin/composer/src/Composer/DependencyResolver/RuleWatchGraph.php on line 52
+[28-Aug-2020 16:18:14 UTC] PHP Fatal error:  Allowed memory size of 1610612736 bytes exhausted (tried to allocate 134217736 bytes) in phar:///opt/cpanel/composer/bin/composer/src/Composer/DependencyResolver/RuleSet.php on line 84
+[29-Aug-2020 01:43:27 UTC] PHP Fatal error:  Allowed memory size of 1610612736 bytes exhausted (tried to allocate 134217736 bytes) in phar:///opt/cpanel/composer/bin/composer/src/Composer/DependencyResolver/RuleSet.php on line 84

@@ -73,7 +73,8 @@ class ImpersonateServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
             $bladeCompiler->directive('impersonating', function () {
-                return "<?php if (is_impersonating()) : ?>";
+                $guard = $this->app['impersonate']->getCurrentAuthGuardName();
+                return "<?php if (app()['auth']->guard('$guard')->check() && app()['auth']->guard('$guard')->user()->isImpersonated()): ?>";
             });
 
             $bladeCompiler->directive('endImpersonating', function () {
@@ -81,7 +82,9 @@ class ImpersonateServiceProvider extends \Illuminate\Support\ServiceProvider
             });
 
             $bladeCompiler->directive('canImpersonate', function () {
-                return "<?php if (can_impersonate()) : ?>";
+                $guard = $this->app['impersonate']->getCurrentAuthGuardName();
+                return "<?php if (app()['auth']->guard('$guard')->check()
+                    && app()['auth']->guard('$guard')->user()->canImpersonate()): ?>";
             });
 
             $bladeCompiler->directive('endCanImpersonate', function () {
@@ -89,7 +92,11 @@ class ImpersonateServiceProvider extends \Illuminate\Support\ServiceProvider
             });
 
             $bladeCompiler->directive('canBeImpersonated', function ($expression) {
-                return "<?php if (can_be_impersonated({$expression})) : ?>";
+                $user = trim($expression);
+                $guard = $this->app['impersonate']->getCurrentAuthGuardName();
+
+                return "<?php if (app()['auth']->guard('$guard')->check()
+                    && app()['auth']->guard('$guard')->user()->id != {$user}->id && {$user}->canBeImpersonated()): ?>";
             });
 
             $bladeCompiler->directive('endCanBeImpersonated', function () {

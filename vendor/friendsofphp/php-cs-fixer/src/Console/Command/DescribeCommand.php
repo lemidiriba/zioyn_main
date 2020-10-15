@@ -48,7 +48,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class DescribeCommand extends Command
 {
-    protected static $defaultName = 'describe';
+    const COMMAND_NAME = 'describe';
 
     /**
      * @var string[]
@@ -65,6 +65,9 @@ final class DescribeCommand extends Command
      */
     private $fixers;
 
+    /**
+     * @param null|FixerFactory $fixerFactory
+     */
     public function __construct(FixerFactory $fixerFactory = null)
     {
         parent::__construct();
@@ -83,6 +86,7 @@ final class DescribeCommand extends Command
     protected function configure()
     {
         $this
+            ->setName(self::COMMAND_NAME)
             ->setDefinition(
                 [
                     new InputArgument('name', InputArgument::REQUIRED, 'Name of rule / set.'),
@@ -103,7 +107,7 @@ final class DescribeCommand extends Command
             if ('@' === $name[0]) {
                 $this->describeSet($output, $name);
 
-                return 0;
+                return null;
             }
 
             $this->describeRule($output, $name);
@@ -123,12 +127,11 @@ final class DescribeCommand extends Command
                 null === $alternative ? '' : ' Did you mean "'.$alternative.'"?'
             ));
         }
-
-        return 0;
     }
 
     /**
-     * @param string $name
+     * @param OutputInterface $output
+     * @param string          $name
      */
     private function describeRule(OutputInterface $output, $name)
     {
@@ -266,22 +269,18 @@ final class DescribeCommand extends Command
             $output->writeln('Fixing examples:');
 
             $differ = new FullDiffer();
-            $diffFormatter = new DiffConsoleFormatter(
-                $output->isDecorated(),
-                sprintf(
-                    '<comment>   ---------- begin diff ----------</comment>%s%%s%s<comment>   ----------- end diff -----------</comment>',
-                    PHP_EOL,
-                    PHP_EOL
-                )
-            );
+            $diffFormatter = new DiffConsoleFormatter($output->isDecorated(), sprintf(
+                '<comment>   ---------- begin diff ----------</comment>%s%%s%s<comment>   ----------- end diff -----------</comment>',
+                PHP_EOL,
+                PHP_EOL
+            ));
 
             foreach ($codeSamples as $index => $codeSample) {
                 $old = $codeSample->getCode();
                 $tokens = Tokens::fromCode($old);
 
-                $configuration = $codeSample->getConfiguration();
-
                 if ($fixer instanceof ConfigurableFixerInterface) {
+                    $configuration = $codeSample->getConfiguration();
                     $fixer->configure(null === $configuration ? [] : $configuration);
                 }
 
@@ -310,7 +309,8 @@ final class DescribeCommand extends Command
     }
 
     /**
-     * @param string $name
+     * @param OutputInterface $output
+     * @param string          $name
      */
     private function describeSet(OutputInterface $output, $name)
     {
@@ -381,7 +381,8 @@ final class DescribeCommand extends Command
     }
 
     /**
-     * @param string $type 'rule'|'set'
+     * @param OutputInterface $output
+     * @param string          $type   'rule'|'set'
      */
     private function describeList(OutputInterface $output, $type)
     {

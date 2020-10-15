@@ -3,5 +3,5 @@
 return [
     'all'        => 'Összes',
     'date'       => 'Dátum',
-    'empty-logs' => 'A naplók listája üres!',
+    'empty-logs' => 'The list of logs is empty!',
 ];

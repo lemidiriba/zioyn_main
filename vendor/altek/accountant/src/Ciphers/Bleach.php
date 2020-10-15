@@ -33,7 +33,7 @@ class Bleach implements \Altek\Accountant\Contracts\Cipher
     /**
      * {@inheritdoc}
      */
-    public static function decipher($value): void
+    public static function decipher($value)
     {
         throw new DecipherException('Value deciphering is not supported by this implementation', $value);
     }

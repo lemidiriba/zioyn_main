@@ -8,22 +8,6 @@ import Swal from 'sweetalert2';
 import $ from 'jquery';
 import 'popper.js'; // Required for BS4
 import 'bootstrap';
-import Chart from 'chart.js';
-//import dt from 'datatables.net-bs4';
-import map from 'mapbox-gl'
-//import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
-// import dt from 'datatables.net-responsive-bs4';
-
-
-
-// mapboxgl.accessToken = 'pk.eyJ1IjoibGVtaWRpcmliYSIsImEiOiJjazU5NHgyMXQwdHhjM21sajkxbjdqYWZuIn0.BFGZSHoafWfGHtJXEq2XFw';
-// var map = new mapboxgl.Map({
-//     container: 'map', // container id
-//     style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-//     center: [-74.50, 40], // starting position
-//     zoom: 9 // starting zoom
-// });
-//window.Chart = require('Chart');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -50,18 +34,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
-
-//used for datatabel table
-// dt(window, $);
-// require('datatables.net-responsive-bs4')($);
-// global.$.DataTable = dt;
-require('datatables.net');
-// require('datatables.net-responsive')(window);
-
-
-
-//mopbox global
-//global.$.mapboxgl = map;
 
 // import Echo from 'laravel-echo';
 

@@ -80,7 +80,8 @@ final class Example
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return int[]
      */

@@ -294,9 +294,13 @@ class Filesystem
     /**
      * Tells whether a file exists and is readable.
      *
+     * @param string $filename Path to the file
+     *
+     * @return bool
+     *
      * @throws IOException When windows path is longer than 258 characters
      */
-    private function isReadable(string $filename): bool
+    private function isReadable($filename)
     {
         $maxPathLength = PHP_MAXPATHLEN - 2;
 
@@ -377,9 +381,11 @@ class Filesystem
     }
 
     /**
+     * @param string $origin
+     * @param string $target
      * @param string $linkType Name of the link type, typically 'symbolic' or 'hard'
      */
-    private function linkException(string $origin, string $target, string $linkType)
+    private function linkException($origin, $target, $linkType)
     {
         if (self::$lastError) {
             if ('\\' === \DIRECTORY_SEPARATOR && false !== strpos(self::$lastError, 'error code(1314)')) {
@@ -594,10 +600,6 @@ class Filesystem
      */
     public function isAbsolutePath($file)
     {
-        if (null === $file) {
-            @trigger_error(sprintf('Calling "%s()" with a null in the $file argument is deprecated since Symfony 4.4.', __METHOD__), E_USER_DEPRECATED);
-        }
-
         return strspn($file, '/\\', 0, 1)
             || (\strlen($file) > 3 && ctype_alpha($file[0])
                 && ':' === $file[1]
@@ -741,9 +743,11 @@ class Filesystem
     }
 
     /**
+     * @param callable $func
+     *
      * @return mixed
      */
-    private static function box(callable $func)
+    private static function box($func)
     {
         self::$lastError = null;
         set_error_handler(__CLASS__.'::handleError');

@@ -2,21 +2,14 @@
 
 namespace App\Models\Auth\Traits\Relationship;
 
-use App\Models\Auth\PasswordHistory;
 use App\Models\Auth\SocialAccount;
+use App\Models\Auth\PasswordHistory;
 
 /**
  * Class UserRelationship.
  */
 trait UserRelationship
 {
-    /**
-     * @return mixed
-     */
-    public function shop()
-    {
-        return $this->hasMany(Shop::class);
-    }
     /**
      * @return mixed
      */
@@ -32,5 +25,4 @@ trait UserRelationship
     {
         return $this->hasMany(PasswordHistory::class);
     }
-
 }

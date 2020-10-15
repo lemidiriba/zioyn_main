@@ -127,8 +127,9 @@ final class MyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param int $startIndex
-     * @param int $endIndex
+     * @param Tokens $tokens
+     * @param int    $startIndex
+     * @param int    $endIndex
      */
     private function updateAssertInternalTypeMethods(Tokens $tokens, $startIndex, $endIndex)
     {

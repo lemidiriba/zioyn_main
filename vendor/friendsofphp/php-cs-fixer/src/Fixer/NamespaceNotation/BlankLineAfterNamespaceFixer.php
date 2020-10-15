@@ -91,7 +91,8 @@ final class BlankLineAfterNamespaceFixer extends AbstractFixer implements Whites
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return int
      */

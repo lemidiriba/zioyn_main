@@ -67,27 +67,6 @@ abstract class BaseRepository implements RepositoryInterface
             // Replacements are considered valid reasons for a package to be installed during forward resolution
             if (!$invert) {
                 $links += $package->getReplaces();
-
-                // On forward search, check if any replaced package was required and add the replaced
-                // packages to the list of needles. Contrary to the cross-reference link check below,
-                // replaced packages are the target of links.
-                foreach ($package->getReplaces() as $link) {
-                    foreach ($needles as $needle) {
-                        if ($link->getSource() === $needle) {
-                            if ($constraint === null || ($link->getConstraint()->matches($constraint) === !$invert)) {
-                                // already displayed this node's dependencies, cutting short
-                                if (in_array($link->getTarget(), $packagesInTree)) {
-                                    $results[] = array($package, $link, false);
-                                    continue;
-                                }
-                                $packagesInTree[] = $link->getTarget();
-                                $dependents = $recurse ? $this->getDependents($link->getTarget(), null, false, true, $packagesInTree) : array();
-                                $results[] = array($package, $link, $dependents);
-                                $needles[] = $link->getTarget();
-                            }
-                        }
-                    }
-                }
             }
 
             // Require-dev is only relevant for the root package
@@ -102,12 +81,12 @@ abstract class BaseRepository implements RepositoryInterface
                         if ($constraint === null || ($link->getConstraint()->matches($constraint) === !$invert)) {
                             // already displayed this node's dependencies, cutting short
                             if (in_array($link->getSource(), $packagesInTree)) {
-                                $results[] = array($package, $link, false);
+                                $results[$link->getSource()] = array($package, $link, false);
                                 continue;
                             }
                             $packagesInTree[] = $link->getSource();
                             $dependents = $recurse ? $this->getDependents($link->getSource(), null, false, true, $packagesInTree) : array();
-                            $results[] = array($package, $link, $dependents);
+                            $results[$link->getSource()] = array($package, $link, $dependents);
                         }
                     }
                 }

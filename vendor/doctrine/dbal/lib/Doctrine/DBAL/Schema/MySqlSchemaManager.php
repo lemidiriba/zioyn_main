@@ -9,40 +9,21 @@ use const CASE_LOWER;
 use function array_change_key_case;
 use function array_shift;
 use function array_values;
-use function assert;
+use function end;
 use function explode;
-use function is_string;
 use function preg_match;
+use function preg_replace;
+use function str_replace;
+use function stripslashes;
 use function strpos;
 use function strtok;
 use function strtolower;
-use function strtr;
 
 /**
  * Schema manager for the MySql RDBMS.
  */
 class MySqlSchemaManager extends AbstractSchemaManager
 {
-    /**
-     * @see https://mariadb.com/kb/en/library/string-literals/#escape-sequences
-     */
-    private const MARIADB_ESCAPE_SEQUENCES = [
-        '\\0' => "\0",
-        "\\'" => "'",
-        '\\"' => '"',
-        '\\b' => "\b",
-        '\\n' => "\n",
-        '\\r' => "\r",
-        '\\t' => "\t",
-        '\\Z' => "\x1a",
-        '\\\\' => '\\',
-        '\\%' => '%',
-        '\\_' => '_',
-
-        // Internally, MariaDB escapes single quotes using the standard syntax
-        "''" => "'",
-    ];
-
     /**
      * {@inheritdoc}
      */
@@ -87,12 +68,20 @@ class MySqlSchemaManager extends AbstractSchemaManager
             } elseif (strpos($v['index_type'], 'SPATIAL') !== false) {
                 $v['flags'] = ['SPATIAL'];
             }
-            $v['length'] = isset($v['sub_part']) ? (int) $v['sub_part'] : null;
+            $v['length'] = $v['sub_part'] ?? null;
 
             $tableIndexes[$k] = $v;
         }
 
         return parent::_getPortableTableIndexesList($tableIndexes, $tableName);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function _getPortableSequenceDefinition($sequence)
+    {
+        return end($sequence);
     }
 
     /**
@@ -112,8 +101,6 @@ class MySqlSchemaManager extends AbstractSchemaManager
 
         $dbType = strtolower($tableColumn['type']);
         $dbType = strtok($dbType, '(), ');
-        assert(is_string($dbType));
-
         $length = $tableColumn['length'] ?? strtok('(), ');
 
         $fixed = null;
@@ -205,9 +192,6 @@ class MySqlSchemaManager extends AbstractSchemaManager
 
         $column = new Column($tableColumn['field'], Type::getType($type), $options);
 
-        if (isset($tableColumn['characterset'])) {
-            $column->setPlatformOption('charset', $tableColumn['characterset']);
-        }
         if (isset($tableColumn['collation'])) {
             $column->setPlatformOption('collation', $tableColumn['collation']);
         }
@@ -236,11 +220,15 @@ class MySqlSchemaManager extends AbstractSchemaManager
         if ($columnDefault === 'NULL' || $columnDefault === null) {
             return null;
         }
-
-        if (preg_match('/^\'(.*)\'$/', $columnDefault, $matches)) {
-            return strtr($matches[1], self::MARIADB_ESCAPE_SEQUENCES);
+        if ($columnDefault[0] === "'") {
+            return stripslashes(
+                str_replace(
+                    "''",
+                    "'",
+                    preg_replace('/^\'(.*)\'$/', '$1', $columnDefault)
+                )
+            );
         }
-
         switch ($columnDefault) {
             case 'current_timestamp()':
                 return $platform->getCurrentTimestampSQL();
@@ -249,7 +237,6 @@ class MySqlSchemaManager extends AbstractSchemaManager
             case 'curtime()':
                 return $platform->getCurrentTimeSQL();
         }
-
         return $columnDefault;
     }
 
@@ -309,20 +296,13 @@ class MySqlSchemaManager extends AbstractSchemaManager
 
         $tableOptions = $this->_conn->fetchAssoc($sql);
 
-        if ($tableOptions === false) {
-            return $table;
-        }
-
         $table->addOption('engine', $tableOptions['ENGINE']);
-
         if ($tableOptions['TABLE_COLLATION'] !== null) {
             $table->addOption('collation', $tableOptions['TABLE_COLLATION']);
         }
-
         if ($tableOptions['AUTO_INCREMENT'] !== null) {
             $table->addOption('autoincrement', $tableOptions['AUTO_INCREMENT']);
         }
-
         $table->addOption('comment', $tableOptions['TABLE_COMMENT']);
         $table->addOption('create_options', $this->parseCreateOptions($tableOptions['CREATE_OPTIONS']));
 

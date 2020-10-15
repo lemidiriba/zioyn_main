@@ -15,33 +15,28 @@ class CreateLedgersTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(
-            'ledgers',
-            function (Blueprint $table) {
-                $table->increments('id');
-                $table->string('user_type')->nullable();
-                $table->unsignedBigInteger('user_id')->nullable();
-                $table->morphs('recordable');
-                $table->unsignedTinyInteger('context');
-                $table->string('event');
-                $table->text('properties');
-                $table->text('modified');
-                $table->text('pivot');
-                $table->text('extra');
-                $table->text('url')->nullable();
-                $table->ipAddress('ip_address')->nullable();
-                $table->string('user_agent')->nullable();
-                $table->string('signature');
-                $table->timestamps();
+        Schema::create('ledgers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('user_type')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->morphs('recordable');
+            $table->unsignedTinyInteger('context');
+            $table->string('event');
+            $table->text('properties');
+            $table->text('modified');
+            $table->text('pivot');
+            $table->text('extra');
+            $table->text('url')->nullable();
+            $table->ipAddress('ip_address')->nullable();
+            $table->string('user_agent')->nullable();
+            $table->string('signature');
+            $table->timestamps();
 
-                $table->index(
-                    [
-                        'user_id',
-                        'user_type',
-                    ]
-                );
-            }
-        );
+            $table->index([
+                'user_id',
+                'user_type',
+            ]);
+        });
     }
 
     /**

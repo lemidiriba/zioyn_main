@@ -12,8 +12,10 @@ class ImpersonateManagerTest extends TestCase
 {
     /** @var  ImpersonateManager */
     protected $manager;
+
     /** @var  string */
     protected $firstGuard;
+
     /** @var  string */
     protected $secondGuard;
 
@@ -22,6 +24,7 @@ class ImpersonateManagerTest extends TestCase
         parent::setUp();
 
         $this->manager = $this->app->make(ImpersonateManager::class);
+
         $this->firstGuard = 'web';
         $this->secondGuard = 'admin';
     }

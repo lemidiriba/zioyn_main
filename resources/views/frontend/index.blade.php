@@ -4,505 +4,450 @@
 
 @section('content')
 
-<!-- map style-->
-<style>
-    #map {
-        overflow: hidden;
-
-        width: 100% !important;
-        max-height: 100% !important;
 
 
-    }
-</style>
 
-<section class="section-main bg padding-y-sm">
-    <div class="container">
-        <div class="card pb-4">
-            <div class="card-body">
-                <div class="row row-sm">
-                    <aside class="col-md-3">
-                        <h5 class="text-uppercase">My Markets</h5>
-                        <ul class="menu-category">
-                            <li> <a href="#">Shoes </a></li>
+<main>
 
-                            <li> <a href="#">Clothe </a>
+    <!-- Slider Area Start-->
+    <div class="slider-area slider-bg ">
+        <div class="slider-active dot-style">
+            <div class="single-slider d-flex align-items-center slider-height ">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-9 ">
+                            <div class="hero__caption">
+                                <h1 data-animation="fadeInLeft" data-delay=".3s">Ziyon <br> Stay Home Be Safe digital
+                                    library
+                                </h1>
+                                <p data-animation="fadeInLeft" data-delay=".6s">Preparing responsible citizens and
+                                    effective leaders.</p>
+                                <!-- Slider btn -->
+                                <div class="col-xl-12">
+                                    <!-- Search Box -->
+                                    <form action="{{ route('frontend.search') }}" class="search-box">
+                                        <div class="input-form">
+                                            <input name="searchword" type="text"
+                                                placeholder="Search School By Name Here!">
+                                        </div>
 
-                            </li>
-
-                            <li> <a href="#">Electronics</a>
-
-                            </li>
-
-                        </ul>
-
-                    </aside>
-
-                    <!-- col.// -->
-                    <div class="col-md-6">
-                        <!-- ================= main slide ================= -->
-                        <div class="owl-init slider-main owl-carousel" data-items="1" data-nav="true" data-dots="false">
-                            <div class="item-slide">
-                                <img src="{{ asset('storage/img/frontend/banners/slide1.jpg') }}">
-                            </div>
-                            <div class="item-slide">
-                                <img src="{{ asset('storage/img/frontend/banners/slide2.jpg') }}">
-                            </div>
-                            <div class="item-slide">
-                                <img src="{{ asset('storage/img/frontend/banners/slide3.jpg') }}">
+                                        <button class="btn search-form"
+                                            style="border-top-left-radius: 0px !important;overflow: hidden;
+                                        border-bottom-left-radius: 0px !important;width:35% !important; background: #eb566c; " role="button"
+                                            type="submit">search now</button>
+                                    </form>
+                                    <!-- Search Box End-->
+                                </div>
+                                {{-- <div class="slider-btns">
+                                    <!-- Hero-btn -->
+                                    <a data-animation="fadeInLeft" data-delay="1s" href="industries.html"
+                                        class="btn radius-btn">get started</a>
+                                </div> --}}
                             </div>
                         </div>
-                        <!-- ============== main slidesow .end // ============= -->
+                        <div class="col-lg-6">
+                            <div class="hero__img d-none d-lg-block f-right">
+                                <img src="{{ asset('../img/hero/hero_right.webp') }}" alt="" data-animation="fadeInRight"
+                                    data-delay="1s">
+                            </div>
+                        </div>
                     </div>
-                    <!-- col.// -->
-                    <aside class="col-md-3">
-
-                        <h6 class="title-bg bg-secondary"> Qualified Suppliers</h6>
-                        @if ($shop_datas)
-                        <div style="height:280px;">
-                            @foreach ($shop_datas as $shop_data)
-
-                            <figure class="itemside has-bg border-bottom m-1 img-fluid" style="height: 33%;">
-                                <img class="img-bg img-fluid"
-                                    src="{{ asset('storage/shop_image/shop_logo/'.$shop_data->Shop_logo) }} ">
-                                <figcaption class="p-2">
-                                    <h6 class="title">{{ ucwords($shop_data->shop_name) }} </h6>
-                                    <a href="/oneshop/{{ $shop_data->id }}">Shop link</a>
-                                </figcaption>
-                            </figure>
-
-                            @endforeach
-                        </div>
-                        @endif
-
-
-                    </aside>
                 </div>
-                <!-- row.// -->
             </div>
-            <!-- card-body .// -->
-        </div>
-        <!-- card.// -->
-
-        <figure class="mt-3 banner p-3 bg-secondary">
-            <div class="text-lg text-center white">Useful banner can be here</div>
-        </figure>
-
-    </div>
-    <!-- container .//  -->
-</section>
-<!-- ========================= SECTION MAIN END// ========================= -->
-
-<!-- ========================= SECTION ITEMS ========================= -->
-<section class="section-request bg padding-y-sm">
-    <div class="container">
-        <header class="section-heading heading-line"><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-            <h4 class="title-section bg text-uppercase">Recommended items</h4>
-        </header>
-
-        <div class="row-sm">
-            @if (count($product_datas) > 0)
-            @foreach ($product_datas as $product_data)
-
-
-            <div class="col-md-2">
-                <figure class="card card-product">
-                    <div class="img-wrap"> <img
-                            src="{{ asset('storage/shop_image/product_image/'.$product_data->product_image) }}"></div>
-                    <figcaption class="info-wrap">
-                        <h6 class="title"><a
-                                href="product-detail/{{ $product_data->id }}">{{ ucwords($product_data->product_name) }}</a>
-                        </h6>
-
-                        <div class="price-wrap">
-                            <span class="price-new">{{ $product_data->price }}</span>
-                            <del
-                                class="price-old">{{ (int)(($product_data->price) +($product_data->price * (8/100))) }}</del>
-                        </div>
-                        <!-- price-wrap.// -->
-
-                    </figcaption>
-                </figure>
-                <!-- card // -->
-            </div>
-            @endforeach
-            @endif
-            <!-- col // -->
-        </div>
-        <!-- row.// -->
-
-
-    </div>
-    <!-- container // -->
-</section>
-<!-- ========================= SECTION ITEMS .END// ========================= -->
-<!-- ========================= SECTION CONTENT ========================= -->
-
-<section class="section-content padding-y-sm bg">
-    <div class="container">
-
-        <header class="section-heading heading-line">
-            <h4 class="title-section bg">Near By Shop</h4>
-        </header>
-
-        <div class="card">
-            <div class="row no-gutters">
-                <div class="col-md-3">
-
-                    <article href="#" class="card-banner h-100 bg2">
-                        <div class="card-body zoom-wrap">
-                            <h5 class="title">Near By Shop Location </h5>
-                            <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna
-                                aliqua. Lorem ipsum dolor sit amet, cLorem ipsum dolor sit amet, cLorem ipsum dolor
-                                sit
-                                amet, cLorem ipsum dolor sit amet, c</p>
-                            <a href="#" class="btn btn-warning">Explore</a>
-                            <img src="{{ asset('storage/img/frontend/items/item-sm.png') }}" height="200" class="img-bg
-zoom-in">
-                        </div>
-                    </article>
-
-                </div>
-                <!-- col.// -->
-                <div class="col-md-9">
-                    <ul class="row no-gutters border-cols">
-                        <li class="col-6 col-md-3">
-                            <a href="#" class="itembox">
-                                <div class="card-body">
-                                    <p class="word-limit">Home and kitchen electronic stuff collection
-                                    </p>
-                                    <img class="img-sm" src="{{ asset('storage/img/frontend/items/1.jpg') }}">
-                                </div>
-                            </a>
-                        </li>
-
-                    </ul>
-                    <ul class="row no-gutters border-cols">
-                        <li class="col-6 col-md-3">
-                            <a href="#" class="itembox">
-                                <div class="card-body">
-                                    <p class="word-limit">Home and kitchen electronic stuff </p>
-                                    <img class="img-sm" src="{{ asset('storage/img/frontend/items/1.jpg') }}">
-                                </div>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-                <!-- col.// -->
-            </div>
-            <!-- row.// -->
 
         </div>
-        <!-- card.// -->
+        <!-- Slider Shape -->
+        <div class="slider-shape d-none d-lg-block">
+            <img class="slider-shape1" src="{{ asset('/img/hero/top-left-shape.png') }}" alt="">
+            <img class="slider-shape2" src="{{ asset('/img/hero/right-top-shape.png') }}" alt="">
+            <img class="slider-shape3" src="{{ asset('/img/hero/left-botom-shape.png') }}" alt="">
+        </div>
+        <!-- slider Social -->
+        {{-- <div class="slider-social d-none d-md-block">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fas fa-globe"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div> --}}
 
     </div>
-    <!-- container .//  -->
-</section>
-<!-- ========================= SECTION CONTENT END// ========================= -->
-
-<!-- ========================= SECTION REQUEST ========================= -->
-
-<section class="section-request bg padding-y-sm">
-    <div class="container">
-        <header class="section-heading heading-line">
-            <h4 class="title-section bg text-uppercase">Request for Quotation</h4>
-        </header>
-
-        <div class="row">
-            <div class="col-md-8">
-                <figure class="card-banner banner-size-lg">
-                    <figcaption class="overlay left">
-                        <br>
-                        <h2 style="max-width: 300px;">Big boundle or collection of featured items
-                        </h2>
-                        <br>
-                        <a class="btn btn-warning" href="#">Detail info » </a>
-                    </figcaption>
-                    <img src="{{ asset('storage/img/frontend/banners/banner-request.jpg') }}">
-                </figure>
+    <!-- Slider Area End -->
+    <!--Services Area Start -->
+    <div class="services-area section-padding30 fix">
+        <div class="container">
+            <!-- Section Tittle -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-tittle text-center mb-100">
+                        <span>Oue Best Services</span>
+                        <h2>What we have for you</h2>
+                    </div>
+                </div>
             </div>
-            <!-- col // -->
-            <div class="col-md-4">
-
-                <div class="card card-body">
-                    <h5 class="title py-4">One Request, Multiple Quotes.</h5>
-                    <form>
-                        <div class="form-group">
-                            <input class="form-control" name="" type="text">
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input class="form-control" name="" type="text">
-                                <span class="input-group-btn" style="border:0; width: 0;"></span>
-                                <select class="form-control">
-                                    <option>Pieces</option>
-                                    <option>Litres</option>
-                                    <option>Tons</option>
-                                    <option>Gramms</option>
-                                </select>
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-10">
+                    <div class="services-wrapper mb-50">
+                        <div class="single-services">
+                            <div class="services-icon">
+                                <span class="fa fa-book"></span>
+                            </div>
+                            <div class="services-cap">
+                                <h3><a href="services.html">Original School Material</a></h3>
+                                <p>Provide you all the school materials that are posted by your school administration, right from your school</p>
+                                {{-- <a href="services.html" class="get-btn"><i class="ti-arrow-right"></i> get
+                                    started</a> --}}
                             </div>
                         </div>
-                        <div class="form-group text-muted">
-                            <p>Select template type:</p>
-                            <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" value="option1">
-                                <span class="form-check-label">Request price</span>
-                            </label>
-                            <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" value="option2">
-                                <span class="form-check-label">Request a sample</span>
-                            </label>
+                        <div class="services-shape">
+                            <span>.01</span>
+                            <img src="{{ asset('/img/gallery/shape-services.png') }}" alt="">
                         </div>
-                        <div class="form-group">
-                            <button class="btn btn-warning">Request for quote</button>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-8 col-sm-10">
+                    <div class="services-wrapper mb-50">
+                        <div class="single-services">
+                            <div class="services-icon">
+                                <span class="fa fa-home"></span>
+                            </div>
+                            <div class="services-cap">
+                                <h3><a href="services.html">Advanced School Resource</a></h3>
+                                <p>Any kind of student can get access from several Schools for futher stydy!</p>
+                                {{-- <a href="services.html" class="get-btn"><i class="ti-arrow-right"></i> get
+                                    started</a> --}}
+                            </div>
                         </div>
+                        <div class="services-shape">
+                            <span>.02</span>
+                            <img src="{{ asset('/img/gallery/shape-services.png') }}" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- Services Area End -->
+    <!-- Search domain Start -->
+    <section class="search-domain-area section-bg pt-140 pb-140"
+        data-background="{{ asset('/img/gallery/section_bg02.webp') }}">
+        <div class="container">
+            <div class="row align-items-end mb-80">
+                <div class="col-xl-4">
+                    <!-- Section Tittle -->
+                    <div class="section-tittle section-tittle2">
+                        <span>Get your Material</span>
+                        <h2>Search school material you want</h2>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <!-- Search Box -->
+                    <form action="{{ route('frontend.search') }}" class="search-box">
+                        <div class="input-form">
+                            <input name="searchword" type="text" placeholder="Search your School name here">
+                        </div>
+
+                        <button class="btn search-form" style="border-top-left-radius: 0px !important;overflow: hidden;
+                        border-bottom-left-radius: 0px !important;width:35% !important; background: #eb566c; "
+                            role="button" type="submit">search now</button>
                     </form>
+                    <!-- Search Box End-->
                 </div>
-
             </div>
-            <!-- col // -->
-        </div>
-        <!-- row // -->
-
-    </div>
-    <!-- container // -->
-</section>
-<!-- ========================= SECTION REQUEST .END// ========================= -->
-
-<!-- ========================= SECTION LINKS ========================= -->
-<section class="section-links bg padding-y-sm">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <header class="section-heading heading-line">
-                    <h4 class="title-section bg text-uppercase">Suppliers by Region</h4>
-                </header>
-
-                <ul class="list-icon row">
-                    <li class="col-md-4">
-                        <a href="#"><img src="{{ asset('storage/img/frontend/icons/flag-usa.png') }}"><span>United
-                                States</span></a>
-                    </li>
-
-                </ul>
-            </div>
-            <!-- col // -->
-
-            <div class="col-sm-6">
-                <header class="section-heading heading-line">
-                    <h4 class="title-section bg text-uppercase">Trade services</h4>
-                </header>
-                <ul class="list-icon row">
-                    <li class="col-md-4"><a href="#"><i class="icon fa fa-comment"></i><span>Trade
-                                Assistance</span></a></li>
-
-                </ul>
-            </div>
-            <!-- col // -->
-        </div>
-        <!-- row // -->
-
-        <figure class="mt-3 banner p-3 bg-secondary">
-            <div class="text-lg text-center white">Another banner can be here</div>
-        </figure>
-
-    </div>
-    <!-- container // -->
-</section>
-<!-- ========================= SECTION LINKS END.// ========================= -->
-<!-- ========================= SECTION SUBSCRIBE ========================= -->
-<section class="section-subscribe bg-secondary padding-y-lg">
-    <div class="container">
-
-        <p class="pb-2 text-center white">Delivering the latest product trends and industry news straight to your
-            inbox
-        </p>
-
-        <div class="row justify-content-md-center">
-            <div class="col-lg-4 col-sm-6">
-                <form class="row-sm form-noborder">
-                    <div class="col-8">
-                        <input class="form-control" placeholder="Your Email" type="email">
+            {{-- <!-- Domain List -->
+            <div class="row">
+                <div class="domain-list">
+                    <div class="single-domain">
+                        <span>.com</span>
+                        <p>$3.99/Year</p>
                     </div>
-                    <!-- col.// -->
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-block btn-warning"> <i class="fa
-    										fa-envelope"></i> Subscribe </button>
+                    <div class="single-domain">
+                        <span>.net</span>
+                        <p>$2.99/Year</p>
                     </div>
-                    <!-- col.// -->
-                </form>
-                <small class="form-text text-white-50">We’ll never share your email
-                    address with a third-party. </small>
+                    <div class="single-domain">
+                        <span>.com</span>
+                        <p>$3.99/Year</p>
+                    </div>
+                    <div class="single-domain">
+                        <span>.co</span>
+                        <p>$5.99/Year</p>
+                    </div>
+                    <div class="single-domain">
+                        <span>.org</span>
+                        <p>$2.99/Year</p>
+                    </div>
+                    <div class="single-domain">
+                        <span>.live</span>
+                        <p>$1.99/Year</p>
+                    </div>
+                </div>
             </div>
-            <!-- col-md-6.// -->
+            <!-- Domain List  End--> --}}
         </div>
+    </section>
+    <!-- Search domain End -->
+    <!--All startups Start -->
+    <section class="all-starups-area section-padding2">
+        <!-- left Contents -->
+        <div class="starups">
+            <div class="starups-details">
+                <!-- Section Tittle -->
+                <div class="section-tittle section-tittle3">
+                    <span>Get your Book</span>
+                    <h2>We are with you every step of the way</h2>
+                </div>
+                <!-- details caption -->
+                <div class="details-caption">
+                    <p>Studying can become an appealing and proactive experience for students. You can share the following studying strategies and tips as suggestions to help make that happen for all students.</p>
+                    <ul>
+                        <li>Link to the Real World</li>
+                        <li>Encourage Group Communication</li>
+                        <li>Find Out How They Learn Best</li>
+                        <li>Focus on Exploration and Problem Solving</li>
+                        <li>Have Students Teach Each Other</li>
+                        </ul>
+                    
+                </div>
+                <a href="{{ route('frontend.student') }}" class="btn">get started</a>
+            </div>
+        </div>
+        <!--Right Contents  -->
+        <div class="starups-img">
+            <img src="{{ asset('/img/gallery/visit_bg.webp') }}" alt="">
+        </div>
+    </section>
+    <!--All startups End -->
+    <!-- work company Start-->
+    <section class="work-company">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <!-- Section Tittle -->
+                    <div class="section-tittle section-tittle3">
+                        <span>Get your Book</span>
+                        <h2>We are with you every step of the way</h2>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="logo-area">
+                        <div class="row">
+                           
+                           
+                            
+                            
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <div class="single-logo">
+                                    <img src="{{ asset('/img/gallery/cisco_brand5.png') }}" alt="">
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- work company End-->
 
-
+    <!-- Testimonial Start -->
+    <div class="testimonial-area testimonial-padding">
+        <div class="container ">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-7">
+                    <div class="h1-testimonial-active">
+                        <!-- Single Testimonial -->
+                        <div class="single-testimonial">
+                            <!-- Testimonial Content -->
+                            <div class="testimonial-caption ">
+                                <!-- founder -->
+                                <div class="testimonial-founder d-flex align-items-center mb-30">
+                                    <div class="founder-img">
+                                        <img src="{{ asset('/img/testmonial/Homepage_testi.png') }}" alt="">
+                                    </div>
+                                    <div class="founder-text">
+                                        <span>Willi Diriba</span>
+                                        <p>Student, Getesemane School</p>
+                                    </div>
+                                </div>
+                                <div class="testimonial-top-cap">
+                                    <p>I found it eassy to use and it is very use full during this Covid padmic, I recomand every studnt shuld us it get good use form it.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Single Testimonial -->
+                        <!--<div class="single-testimonial">-->
+                            <!-- Testimonial Content -->
+                        <!--    <div class="testimonial-caption ">-->
+                                <!-- founder -->
+                        <!--        <div class="testimonial-founder d-flex align-items-center mb-30">-->
+                        <!--            <div class="founder-img">-->
+                        <!--                <img src="{{ asset('/img/testmonial/Homepage_testi.png') }}" alt="">-->
+                        <!--            </div>-->
+                        <!--            <div class="founder-text">-->
+                        <!--                <span>Liyu Demisse</span>-->
+                        <!--                <p>CEO, Zioyn</p>-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!--        <div class="testimonial-top-cap">-->
+                        <!--            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod-->
+                        <!--                tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse-->
+                        <!--                ultrice.</p>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <div class="testimonial-banner">
+                        <img src="{{ asset('/img/gallery/testimonail.webp') }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Shape -->
+        <img src="{{ asset('/img/testmonial/shape-testimonial.webp') }}" class="testimonial-shape d-none d-lg-block"
+            alt="">
     </div>
-    <!-- container // -->
-</section>
-<!-- ========================= SECTION SUBSCRIBE END.//========================= -->
-<style>
-    .mapboxgl-popup {
-    max-width: 200px;
-    }
+    <!-- Testimonial End -->
+    <!-- Support Area Start -->
+    <section class="support-area section-bg pt-150 pb-150"
+        data-background="{{ asset('./img/gallery/section_bg03.webp') }}">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-5">
+                    <div class="support-caption">
+                        <!-- Section Tittle -->
+                        <div class="section-tittle section-tittle5">
+                            <span>Get your Book</span>
+                            <h2>24/7 Support</h2>
+                            <p class="support-details">Our expert team is always on hand to help answer your
+                                questions, get you started, and grow your presence online. You can call, chat or
+                                email us any time!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="support-number">
+                        <!-- Single contact -->
+                        <div class="single-contact text-center">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-volume"></i>
+                            </div>
+                            <div class="contact-number text-wrap">
+                                <span>09 111 130 99</span>
+                            </div>
+                        </div>
+                        <!-- Single contact -->
+                        <div class="single-contact text-center">
+                            <div class="contact-icon">
+                                <i class="far fa-comment"></i>
+                            </div>
+                            <div class="contact-number ">
+                                <span c>liyu@zioyn.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Support Area End -->
+    {{-- <!-- Blog Area Start -->
+    <section class="blogs-area section-padding30">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Section Tittle -->
+                    <div class="section-tittle text-center mb-80">
+                        <span>Our Blog</span>
+                        <h2>Our latest news</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-blogs mb-100">
+                        <div class="blog-img">
+                            <img src="{{ asset('/img/gallery/blog1.png') }}" alt="">
+    </div>
+    <div class="blog-cap">
+        <span class="color1">23 Dec, 2020</span>
+        <h4><a href="#">Addiction When Gambling Becomes</a></h4>
+    </div>
+    </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="single-blogs mb-100">
+            <div class="blog-img">
+                <img src="{{ asset('/img/gallery/blog2.png') }}" alt="">
+            </div>
+            <div class="blog-cap">
+                <span class="color1">23 Dec, 2020</span>
+                <h4><a href="#">Addiction When Gambling Becomes</a></h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="single-blogs mb-100">
+            <div class="blog-img">
+                <img src="{{ asset('/img/gallery/blog3.png') }}" alt="">
+            </div>
+            <div class="blog-cap">
+                <span class="color1">23 Dec, 2020</span>
+                <h4><a href="#">Addiction When Gambling Becomes</a></h4>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </section>
+    <!-- Blog Area End --> --}}
 
-    .mapboxgl-popup-content {
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
-    }
+</main>
 
-</style>
-<script>
-    var map, popup, Popup, marker, infowindow;
-
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $(window).load(function () {
-        $.ajax({
-            method: "GET",
-            url: 'https://zioyn.com/shop/location/all',
-            cache: true,
-        }).done(
-            function (e) {
-                console.log('success');
-                console.log(e);
-                for (let i = 0; i < e.length; i++) {
-                    const lat = parseFloat(e[i].longitude);
-                    const lng = parseFloat(e[i].latitude);
-                    const shopinfo = e[i];
-                    // addMarker(lat, lng, shopinfo);
-                }
-            });
-
-
-    });
-
-
-    // function initMap() {
-    //     console.log('map inti start')
-    //     //map options
-    //     var options = {
-    //         zoom: 11,
-    //         center: {
-    //             lat: 8.9806,
-    //             lng: 38.7578
-    //         },
-    //         height: "100%"
-    //     }
-    //     //new map
-    //     map = new google.maps.Map(document.getElementById('map'), options);
-
-    // }
-
-    // function addMarker(lat, lng, shopinfo) {
-    //     console.log('here')
-    //     console.log(shopinfo)
-    //     const latLng = {
-    //         lat: lat,
-    //         lng: lng
-    //     }
-
-    //     var marker = new google.maps.Marker({
-    //         position: latLng,
-    //         label: {
-    //             text: 'S'
-    //         }
-    //     });
-    //     var infowindow = new google.maps.InfoWindow({
-    //         content: "<h6>" + shopinfo.shop_name + "</h6><br>" + "<p><a href='http://shemach.test/oneshop/" +
-    //             shopinfo.id + "' target='_blank'>Visit shop</a></p>"
-    //     });
-
-    //     marker.addListener('click', function () {
-    //         infowindow.open(map, marker);
-    //     });
-
-    //     marker.setMap(map);
-
-    // }
-
-
-
-    // mapboxgl.accessToken =
-    //     'pk.eyJ1IjoibGVtaWRpcmliYSIsImEiOiJjazU5NHgyMXQwdHhjM21sajkxbjdqYWZuIn0.BFGZSHoafWfGHtJXEq2XFw';
-    // var map = new mapboxgl.Map({
-    //     container: 'map',
-    //     zoom: 0.3,
-    //     center: [0, 20],
-    //     style: 'mapbox://styles/mapbox/light-v10'
-    // });
-    // map.addControl(new mapboxgl.GeolocateControl({
-    //     positionOptions: {
-    //         enableHighAccuracy: true
-    //     },
-    //     trackUserLocation: true
-    // }));
-
-    // // add markers to map
-    // geojson.features.forEach(function(marker) {
-
-    // // create a HTML element for each feature
-    // var el = document.createElement('div');
-    // el.className = 'marker';
-
-    // // make a marker for each feature and add to the map
-    // new mapboxgl.Marker(el)
-    // .setLngLat(marker.geometry.coordinates)
-    // .addTo(map);
-    // });
-
-    // new mapboxgl.Marker(el)
-    // .setLngLat(marker.geometry.coordinates)
-    // .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-    // .setHTML('<h3>' + marker.properties.title + '</h3>
-    // <p>' + marker.properties.description + '</p>'))
-    // .addTo(map);
+<!-- Scroll Up -->
+<div id="back-top">
+    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
 
 
-    //working code to get current location
-    // navigator.geolocation.watchPosition(render);
 
-    // function render(pos) {
-    //     var lat = pos.coords.latitude;
-    //     var lon = pos.coords.longitude;
-    //     var map = mapboxgl.map('map', 'examples.map-20v6611k')
-    //         .setView([lat, lon], 8);
 
-    //     mapboxgl.markerLayer({
-    //         // this feature is in the GeoJSON format: see geojson.org
-    //         // for the full specification
-    //         type: 'Feature',
-    //         geometry: {
-    //             type: 'Point',
-    //             // coordinates here are in longitude, latitude order because
-    //             // x, y is the standard for GeoJSON and many formats
-    //             coordinates: [lon, lat]
-    //         },
-    //         properties: {
-    //             title: 'Current Location',
-    //             description: lat.toString() + ', ' + lon.toString(),
-    //             // one can customize markers by adding simplestyle properties
-    //             // http://mapbox.com/developers/simplestyle/
-    //             'marker-size': 'large',
-    //             'marker-color': '#f0a',
-    //         }
-    //     }).addTo(map)
-    // };
 
-    //    if ("geolocation" in navigator) {
-    //        console.log(Geolocation)
-    //    }else{
-    //        console.log('location not avalable');
-    //    }
 
-</script>
+{{-- <div class="row mb-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-home"></i> @lang('navs.general.home')
+                </div>
+                <div class="card-body">
+                    @lang('strings.frontend.welcome_to', ['place' => app_name()])
+                </div>
+            </div><!--card-->
+        </div><!--col-->
+    </div><!--row-->
 
+    <div class="row mb-4">
+        <div class="col">
+            <example-component></example-component>
+        </div><!--col-->
+    </div><!--row-->
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fab fa-font-awesome-flag"></i> Font Awesome @lang('strings.frontend.test')
+                </div>
+                <div class="card-body">
+                    <i class="fas fa-home"></i>
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-pinterest"></i>
+                </div><!--card-body-->
+            </div><!--card-->
+        </div><!--col-->
+    </div><!--row--> --}}
 @endsection

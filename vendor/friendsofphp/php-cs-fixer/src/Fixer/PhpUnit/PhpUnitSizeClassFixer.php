@@ -75,7 +75,8 @@ final class PhpUnitSizeClassFixer extends AbstractFixer implements WhitespacesAw
     }
 
     /**
-     * @param int $startIndex
+     * @param Tokens $tokens
+     * @param int    $startIndex
      */
     private function markClassSize(Tokens $tokens, $startIndex)
     {
@@ -97,7 +98,8 @@ final class PhpUnitSizeClassFixer extends AbstractFixer implements WhitespacesAw
     }
 
     /**
-     * @param int $i
+     * @param Tokens $tokens
+     * @param int    $i
      *
      * @return bool
      */
@@ -135,7 +137,8 @@ final class PhpUnitSizeClassFixer extends AbstractFixer implements WhitespacesAw
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return bool
      */
@@ -147,7 +150,8 @@ final class PhpUnitSizeClassFixer extends AbstractFixer implements WhitespacesAw
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return int
      */
@@ -161,7 +165,8 @@ final class PhpUnitSizeClassFixer extends AbstractFixer implements WhitespacesAw
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return string
      */
@@ -177,7 +182,9 @@ final class PhpUnitSizeClassFixer extends AbstractFixer implements WhitespacesAw
     }
 
     /**
-     * @param int $docBlockIndex
+     * @param DocBlock $docBlock
+     * @param Tokens   $tokens
+     * @param int      $docBlockIndex
      *
      * @return Line[]
      */
@@ -193,7 +200,9 @@ final class PhpUnitSizeClassFixer extends AbstractFixer implements WhitespacesAw
     }
 
     /**
-     * @param int $docBlockIndex
+     * @param DocBlock $doc
+     * @param Tokens   $tokens
+     * @param int      $docBlockIndex
      *
      * @return DocBlock
      */
@@ -213,6 +222,7 @@ final class PhpUnitSizeClassFixer extends AbstractFixer implements WhitespacesAw
      * Take a one line doc block, and turn it into a multi line doc block.
      *
      * @param Line[] $lines
+     * @param Tokens $tokens
      * @param int    $docBlockIndex
      *
      * @return Line[]
@@ -254,6 +264,8 @@ final class PhpUnitSizeClassFixer extends AbstractFixer implements WhitespacesAw
     }
 
     /**
+     * @param DocBlock $doc
+     *
      * @return Annotation[]
      */
     private function filterDocBlock(DocBlock $doc)

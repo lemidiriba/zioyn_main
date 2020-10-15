@@ -67,7 +67,8 @@ final class NoWhitespaceInBlankLineFixer extends AbstractFixer implements Whites
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      */
     private function fixWhitespaceToken(Tokens $tokens, $index)
     {

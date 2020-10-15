@@ -92,8 +92,9 @@ final class MyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param int $startIndex
-     * @param int $endIndex
+     * @param Tokens $tokens
+     * @param int    $startIndex
+     * @param int    $endIndex
      */
     private function fixWillReturn(Tokens $tokens, $startIndex, $endIndex)
     {

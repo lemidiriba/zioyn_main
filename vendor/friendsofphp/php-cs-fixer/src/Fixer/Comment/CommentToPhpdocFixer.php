@@ -13,10 +13,7 @@
 namespace PhpCsFixer\Fixer\Comment;
 
 use PhpCsFixer\AbstractFixer;
-use PhpCsFixer\Fixer\ConfigurationDefinitionFixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
-use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
-use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\Preg;
@@ -28,13 +25,8 @@ use PhpCsFixer\Utils;
 /**
  * @author Kuba Werłos <werlos@gmail.com>
  */
-final class CommentToPhpdocFixer extends AbstractFixer implements ConfigurationDefinitionFixerInterface, WhitespacesAwareFixerInterface
+final class CommentToPhpdocFixer extends AbstractFixer implements WhitespacesAwareFixerInterface
 {
-    /**
-     * @var string[]
-     */
-    private $ignoredTags = [];
-
     /**
      * {@inheritdoc}
      */
@@ -76,34 +68,6 @@ final class CommentToPhpdocFixer extends AbstractFixer implements ConfigurationD
     /**
      * {@inheritdoc}
      */
-    public function configure(array $configuration = null)
-    {
-        parent::configure($configuration);
-
-        $this->ignoredTags = array_map(
-            static function ($tag) {
-                return strtolower($tag);
-            },
-            $this->configuration['ignored_tags']
-        );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function createConfigurationDefinition()
-    {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('ignored_tags', sprintf('List of ignored tags')))
-                ->setAllowedTypes(['array'])
-                ->setDefault([])
-                ->getOption(),
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
         $commentsAnalyzer = new CommentsAnalyzer();
@@ -134,7 +98,8 @@ final class CommentToPhpdocFixer extends AbstractFixer implements ConfigurationD
     }
 
     /**
-     * @param int[] $indices
+     * @param Tokens $tokens
+     * @param int[]  $indices
      *
      * @return bool
      */
@@ -143,21 +108,15 @@ final class CommentToPhpdocFixer extends AbstractFixer implements ConfigurationD
         return array_reduce(
             $indices,
             function ($carry, $index) use ($tokens) {
-                if ($carry) {
-                    return true;
-                }
-                if (1 !== Preg::match('~(?:#|//|/\*+|\R(?:\s*\*)?)\s*\@([a-zA-Z0-9_\\\\-]+)(?=\s|\(|$)~', $tokens[$index]->getContent(), $matches)) {
-                    return false;
-                }
-
-                return !\in_array(strtolower($matches[1]), $this->ignoredTags, true);
+                return $carry || 1 === Preg::match('~(#|//|/\*+|\R(\s*\*)?)\s*\@[a-zA-Z0-9_\\\\-]+(?=\s|\(|$)~', $tokens[$index]->getContent());
             },
             false
         );
     }
 
     /**
-     * @param int[] $indices
+     * @param Tokens $tokens
+     * @param int[]  $indices
      */
     private function fixComment(Tokens $tokens, $indices)
     {
@@ -169,7 +128,8 @@ final class CommentToPhpdocFixer extends AbstractFixer implements ConfigurationD
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      */
     private function fixCommentSingleLine(Tokens $tokens, $index)
     {
@@ -187,7 +147,8 @@ final class CommentToPhpdocFixer extends AbstractFixer implements ConfigurationD
     }
 
     /**
-     * @param int[] $indices
+     * @param Tokens $tokens
+     * @param int[]  $indices
      */
     private function fixCommentMultiLine(Tokens $tokens, array $indices)
     {

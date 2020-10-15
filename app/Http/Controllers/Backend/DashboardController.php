@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Frontend\Shop\ShopCategoryRepository;
-use App\Repositories\Frontend\Shop\ShopRepository;
+use App\Models\School;
+use App\Repositories\Frontend\Auth\MinistryOfEducationRepository;
+use DataTables;
 
 /**
  * Class DashboardController.
@@ -12,19 +13,17 @@ use App\Repositories\Frontend\Shop\ShopRepository;
 class DashboardController extends Controller
 {
 
-    protected $shopRepository;
-    protected $shopCategoryRepository;
-
     /**
-     * Construct function
+     * Undocumented function
      *
-     * @param ShopRepository $shopRepository used to get shop
-     * @param ShopCategoryRepository $shopCategoryRepository used to get shop category
+     * @param MinistryOfEducationRepository $ministryOfEducationRepository
      */
-    public function __construct(ShopRepository $shopRepository, ShopCategoryRepository $shopCategoryRepository)
+    public function __construct(MinistryOfEducationRepository $ministryOfEducationRepository, School $school)
     {
-        $this->shopCategoryRepository = $shopCategoryRepository;
-        $this->shopRepository = $shopRepository;
+        $this->middleware('auth');
+
+        $this->ministryOfEducationRepository = $ministryOfEducationRepository;
+        $this->school = $school;
     }
 
     /**
@@ -32,11 +31,21 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $totalshop = $this->shopRepository->getShopCount();
-        $shopcountbycatagory = $this->shopCategoryRepository->get();
+        $dashboard_data = [
+            'total_school' => $this->ministryOfEducationRepository->count(),
+            'active_school' => $this->school->count(),
+        ];
+        return view('backend.dashboard')->with($dashboard_data);
+    }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function getSchool()
+    {
 
-        // $shopcountbycatagory[0]->shop->count();
-
-        return view('backend.dashboard')->with(compact('totalshop', 'shopcountbycatagory'));
+        $val =   $this->ministryOfEducationRepository->all();
+        return DataTables::of($val)->make(true);
     }
 }

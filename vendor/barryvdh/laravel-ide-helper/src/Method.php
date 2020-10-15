@@ -321,7 +321,7 @@ class Method
                 if (is_bool($default)) {
                     $default = $default ? 'true' : 'false';
                 } elseif (is_array($default)) {
-                    $default = '[]';
+                    $default = 'array()';
                 } elseif (is_null($default)) {
                     $default = 'null';
                 } elseif (is_int($default)) {

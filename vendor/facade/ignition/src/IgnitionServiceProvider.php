@@ -28,7 +28,6 @@ use Facade\Ignition\Exceptions\InvalidConfig;
 use Facade\Ignition\DumpRecorder\DumpRecorder;
 use Facade\Ignition\Middleware\SetNotifierName;
 use Facade\Ignition\QueryRecorder\QueryRecorder;
-use Facade\Ignition\Middleware\CustomizeGrouping;
 use Facade\Ignition\Commands\SolutionMakeCommand;
 use Facade\Ignition\Middleware\AddGitInformation;
 use Facade\Ignition\Views\Engines\CompilerEngine;
@@ -79,7 +78,6 @@ class IgnitionServiceProvider extends ServiceProvider
             ->registerViewEngines()
             ->registerHousekeepingRoutes()
             ->registerLogHandler()
-            ->registerCommands()
             ->setupQueue($this->app->queue);
 
         $this->app->make(QueryRecorder::class)->register();
@@ -99,7 +97,8 @@ class IgnitionServiceProvider extends ServiceProvider
             ->registerIgnitionConfig()
             ->registerFlare()
             ->registerLogRecorder()
-            ->registerDumpCollector();
+            ->registerDumpCollector()
+            ->registerCommands();
 
         if (config('flare.reporting.report_queries')) {
             $this->registerQueryRecorder();
@@ -131,10 +130,6 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerHousekeepingRoutes()
     {
-        if ($this->app->runningInConsole()) {
-            return $this;
-        }
-
         Route::group([
             'prefix' => config('ignition.housekeeping_endpoint_prefix', '_ignition'),
             'middleware' => [IgnitionEnabled::class],
@@ -293,15 +288,10 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->app->bind('command.flare:test', TestCommand::class);
         $this->app->bind('command.make:solution', SolutionMakeCommand::class);
 
-        if ($this->app['config']->get('flare.key')) {
-            $this->commands(['command.flare:test']);
-        }
-
-        if ($this->app['config']->get('ignition.register_commands', false)) {
-            $this->commands(['command.make:solution']);
-        }
-
-        return $this;
+        $this->commands([
+            'command.flare:test',
+            'command.make:solution',
+        ]);
     }
 
     protected function registerQueryRecorder()
@@ -331,10 +321,6 @@ class IgnitionServiceProvider extends ServiceProvider
 
         if (config('flare.reporting.collect_git_information')) {
             $middleware[] = (new AddGitInformation());
-        }
-
-        if (! is_null(config('flare.reporting.grouping_type'))) {
-            $middleware[] = new CustomizeGrouping(config('flare.reporting.grouping_type'));
         }
 
         foreach ($middleware as $singleMiddleware) {

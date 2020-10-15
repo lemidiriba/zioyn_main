@@ -155,7 +155,8 @@ final class FinalInternalClassFixer extends AbstractFixer implements Configurati
     }
 
     /**
-     * @param int $index T_CLASS index
+     * @param Tokens $tokens
+     * @param int    $index  T_CLASS index
      *
      * @return bool
      */

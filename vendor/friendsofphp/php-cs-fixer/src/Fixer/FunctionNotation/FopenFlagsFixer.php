@@ -53,8 +53,9 @@ final class FopenFlagsFixer extends AbstractFopenFlagFixer implements Configurat
     }
 
     /**
-     * @param int $argumentStartIndex
-     * @param int $argumentEndIndex
+     * @param Tokens $tokens
+     * @param int    $argumentStartIndex
+     * @param int    $argumentEndIndex
      */
     protected function fixFopenFlagToken(Tokens $tokens, $argumentStartIndex, $argumentEndIndex)
     {

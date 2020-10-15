@@ -34,15 +34,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //used to disable debugger
-        \Debugbar::disable();
-        //used to set the default length of string in database
-        Schema::defaultStringLength(191);
-        
-        //used to bind public path to public_html
-        app()->bind('path.public', function() {
+        $this->app->bind('path.public', function() {
             return base_path().'/../public_html';
         });
+        if($this->app->environment('production')) {
+         \URL::forceScheme('https');
+        }
+        Schema::defaultStringLength(191);
         /*
          * Application locale defaults for various components
          *

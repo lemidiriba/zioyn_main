@@ -119,6 +119,7 @@ final class DeclareStrictTypesFixer extends AbstractFixer implements Whitespaces
     }
 
     /**
+     * @param Tokens            $tokens
      * @param array<int, Token> $sequence
      */
     private function fixStrictTypesCasing(Tokens $tokens, array $sequence)

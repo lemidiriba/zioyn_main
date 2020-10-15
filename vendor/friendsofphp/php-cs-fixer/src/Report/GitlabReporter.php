@@ -17,8 +17,6 @@ use Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * Generates a report according to gitlabs subset of codeclimate json files.
  *
- * @see https://github.com/codeclimate/spec/blob/master/SPEC.md#data-types
- *
  * @author Hans-Christian Otto <c.otto@suora.com>
  *
  * @internal
@@ -33,6 +31,8 @@ final class GitlabReporter implements ReporterInterface
     /**
      * Process changed files array. Returns generated report.
      *
+     * @param ReportSummary $reportSummary
+     *
      * @return string
      */
     public function generate(ReportSummary $reportSummary)
@@ -42,13 +42,9 @@ final class GitlabReporter implements ReporterInterface
             foreach ($change['appliedFixers'] as $fixerName) {
                 $report[] = [
                     'description' => $fixerName,
+                    'location.path' => $fileName,
                     'fingerprint' => md5($fileName.$fixerName),
-                    'location' => [
-                        'path' => $fileName,
-                        'lines' => [
-                            'begin' => 0, // line numbers are required in the format, but not available to reports
-                        ],
-                    ],
+                    'location.lines.begin' => 0, // line numbers are required in the format, but not available to reports
                 ];
             }
         }

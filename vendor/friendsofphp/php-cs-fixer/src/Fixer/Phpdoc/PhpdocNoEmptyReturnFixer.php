@@ -110,6 +110,9 @@ function foo() {}
 
     /**
      * Remove return void or return null annotations..
+     *
+     * @param DocBlock   $doc
+     * @param Annotation $annotation
      */
     private function fixAnnotation(DocBlock $doc, Annotation $annotation)
     {

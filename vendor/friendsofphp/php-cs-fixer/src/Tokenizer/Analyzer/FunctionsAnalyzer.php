@@ -23,7 +23,8 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class FunctionsAnalyzer
 {
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return bool
      */
@@ -45,7 +46,8 @@ final class FunctionsAnalyzer
     }
 
     /**
-     * @param int $methodIndex
+     * @param Tokens $tokens
+     * @param int    $methodIndex
      *
      * @return ArgumentAnalysis[]
      */
@@ -65,7 +67,8 @@ final class FunctionsAnalyzer
     }
 
     /**
-     * @param int $methodIndex
+     * @param Tokens $tokens
+     * @param int    $methodIndex
      *
      * @return null|TypeAnalysis
      */
@@ -79,11 +82,11 @@ final class FunctionsAnalyzer
         }
 
         $type = '';
-        $typeStartIndex = $tokens->getNextMeaningfulToken($typeColonIndex);
+        $typeStartIndex = $tokens->getNextNonWhitespace($typeColonIndex);
         $typeEndIndex = $typeStartIndex;
-        $functionBodyStart = $tokens->getNextTokenOfKind($typeColonIndex, ['{', ';', [T_DOUBLE_ARROW]]);
+        $functionBodyStart = $tokens->getNextTokenOfKind($typeColonIndex, ['{', ';']);
         for ($i = $typeStartIndex; $i < $functionBodyStart; ++$i) {
-            if ($tokens[$i]->isWhitespace() || $tokens[$i]->isComment()) {
+            if ($tokens[$i]->isWhitespace()) {
                 continue;
             }
 
@@ -92,31 +95,5 @@ final class FunctionsAnalyzer
         }
 
         return new TypeAnalysis($type, $typeStartIndex, $typeEndIndex);
-    }
-
-    /**
-     * @param int $index
-     *
-     * @return bool
-     */
-    public function isTheSameClassCall(Tokens $tokens, $index)
-    {
-        if (!$tokens->offsetExists($index)) {
-            return false;
-        }
-
-        $operatorIndex = $tokens->getPrevMeaningfulToken($index);
-        if (!$tokens->offsetExists($operatorIndex)) {
-            return false;
-        }
-
-        $referenceIndex = $tokens->getPrevMeaningfulToken($operatorIndex);
-        if (!$tokens->offsetExists($referenceIndex)) {
-            return false;
-        }
-
-        return $tokens[$operatorIndex]->equals([T_OBJECT_OPERATOR, '->']) && $tokens[$referenceIndex]->equals([T_VARIABLE, '$this'], false)
-            || $tokens[$operatorIndex]->equals([T_DOUBLE_COLON, '::']) && $tokens[$referenceIndex]->equals([T_STRING, 'self'], false)
-            || $tokens[$operatorIndex]->equals([T_DOUBLE_COLON, '::']) && $tokens[$referenceIndex]->equals([T_STATIC, 'static'], false);
     }
 }

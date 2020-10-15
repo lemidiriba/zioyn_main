@@ -20,8 +20,46 @@ class UserTableSeeder extends Seeder
         // Add the master administrator, user id of 1
         User::create([
             'first_name' => 'Super',
-            'last_name' => 'Admin',
-            'email' => 'admin@admin.com',
+            'last_name' => 'Lemi',
+            'email' => 'lemi@admin.com',
+            'password' => 'secret',
+            'confirmation_code' => md5(uniqid(mt_rand(), true)),
+            'confirmed' => true,
+        ]);
+        
+        // Add the master administrator, user id of 2
+        User::create([
+            'first_name' => 'Super',
+            'last_name' => 'Liyu',
+            'email' => 'liyu@admin.com',
+            'password' => 'secret',
+            'confirmation_code' => md5(uniqid(mt_rand(), true)),
+            'confirmed' => true,
+        ]);
+        
+        // Add the master administrator, user id of 1
+        User::create([
+            'first_name' => 'Super',
+            'last_name' => 'Megersa',
+            'email' => 'megersa@admin.com',
+            'password' => 'secret',
+            'confirmation_code' => md5(uniqid(mt_rand(), true)),
+            'confirmed' => true,
+        ]);
+         // Add the master administrator, user id of 1
+        User::create([
+            'first_name' => 'Super',
+            'last_name' => 'Darge',
+            'email' => 'darge@admin.com',
+            'password' => 'secret',
+            'confirmation_code' => md5(uniqid(mt_rand(), true)),
+            'confirmed' => true,
+        ]);
+        
+         User::create([
+            'first_name' => 'Super',
+            'last_name' => 'Worku',
+            'email' => 'worku@admin.com',
             'password' => 'secret',
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
             'confirmed' => true,
@@ -32,15 +70,6 @@ class UserTableSeeder extends Seeder
             'last_name' => 'User',
             'email' => 'user@user.com',
             'password' => 'secret',
-            'confirmation_code' => md5(uniqid(mt_rand(), true)),
-            'confirmed' => true,
-        ]);
-
-        User::create([
-            'first_name' => 'Test',
-            'last_name' => 'test',
-            'email' => 'test@test.com',
-            'password' => 'test',
             'confirmation_code' => md5(uniqid(mt_rand(), true)),
             'confirmed' => true,
         ]);

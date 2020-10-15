@@ -1,78 +1,90 @@
-<!-- ========================= FOOTER ========================= -->
-<footer class="section-footer bg-secondary">
-    <div class="container">
-        <section class="footer-top padding-top">
-            <div class="row">
-                <aside class="col-sm-3 col-md-3 white">
-                    <h5 class="title">Customer Services</h5>
-                    <ul class="list-unstyled">
-                        <li> <a href="#">Help center</a></li>
-                        <li> <a href="#">Money refund</a></li>
-                        <li> <a href="#">Terms and Policy</a></li>
-                        <li> <a href="#">Open dispute</a></li>
-                    </ul>
-                </aside>
-                <aside class="col-sm-3 col-md-3 white">
-                    <h5 class="title">My Account</h5>
-                    <ul class="list-unstyled">
-                        <li> <a href="#"> User Login </a></li>
-                        <li> <a href="#"> User register </a></li>
-                        <li> <a href="#"> Account Setting </a></li>
-                        <li> <a href="#"> My Orders </a></li>
-                        <li> <a href="#"> My Wishlist </a></li>
-                    </ul>
-                </aside>
-                <aside class="col-sm-3 col-md-3 white">
-                    <h5 class="title">About</h5>
-                    <ul class="list-unstyled">
-                        <li> <a href="#"> Our history </a></li>
-                        <li> <a href="#"> How to buy </a></li>
-                        <li> <a href="#"> Delivery and payment </a></li>
-                        <li> <a href="#"> Advertice </a></li>
-                        <li> <a href="#"> Partnership </a></li>
-                    </ul>
-                </aside>
-                <aside class="col-sm-3">
-                    <article class="white">
-                        <h5 class="title">Contacts</h5>
-                        <p>
-                            <strong>Phone: </strong> +123456789 <br>
-                            <strong>Fax:</strong> +123456789
-                        </p>
-
-                        <div class="btn-group white">
-                            <a class="btn btn-facebook" title="Facebook" target="_blank" href="#"><i
-                                    class="fab fa-facebook-f fa-fw"></i></a>
-                            <a class="btn btn-instagram" title="Instagram" target="_blank" href="#"><i
-                                    class="fab fa-instagram fa-fw"></i></a>
-                            <a class="btn btn-youtube" title="Youtube" target="_blank" href="#"><i
-                                    class="fab fa-youtube fa-fw"></i></a>
-                            <a class="btn btn-twitter" title="Twitter" target="_blank" href="#"><i
-                                    class="fab fa-twitter fa-fw"></i></a>
+<footer>
+    <!-- Footer Start-->
+    <div class="footer-area">
+        <div class="container">
+            <div class="footer-top footer-padding">
+                <div class="row justify-content-between">
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+                                <!-- logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="{{ asset('/img/logo/logo12_footer.png') }}" alt="">
+                                        Zioyn</a>
+                                </div>
+                            </div>
                         </div>
-                    </article>
-                </aside>
-            </div>
-            <!-- row.// -->
-            <br>
-        </section>
-        <section class="footer-bottom row border-top-white">
-            <div class="col-sm-6">
-                
-            </div>
-            <div class="col-sm-6">
-                <p class="text-md-right text-white-50">
-                     <strong> &copy; {{ date('Y') }}
-                        <a class=" text-black-50" href="http://pantersd.com">
-                            Panter Software Development PLC
-                        </a>
-                    </strong> @lang('strings.backend.general.all_rights_reserved')
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>All Service</h4>
+                                <ul>
+                                    <li>School Material </li>
+                                    <li>Reliable Resource </li>
+                                    <li> Limitless Access </li>
 
-                </p>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Quick Link</h4>
+                                <ul>
+                                    <li><a href="{{ route('frontend.contact') }}">Contact Us</a></li>
+                                    <li><a href="{{ route('frontend.about') }}">About Us</a></li>
+                                    {{-- <li><a href="#">News & Articles</a></li> --}}
+                                    <li><a href="{{ route('frontend.privacy') }}">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>(+251)911 113 099</h4>
+                                <h4>(+251)920 573 344</h4>
+                                <ul>
+                                    <li>
+                                        <a href="#">info@zioyn.com</a></li>
+                                </ul>
+                                <p>Aidss Abeba,Mexico , Fifth Floor, </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
-        <!-- //footer-top -->
+            <div class="footer-bottom">
+                <div class="row d-flex justify-content-between align-items-center">
+                    <div class="col-xl-9 col-lg-9 ">
+                        <div class="footer-copy-right">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy; 2020
+                                {{-- <script>
+                                        document.write(new Date().getFullYear());
+                                    </script>  --}}
+                                All rights reserved | This template is made with <i class="fa fa-heart"
+                                    aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                    target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3">
+                        <!-- Footer Social -->
+                        <div class="footer-social f-right">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-globe"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- //container -->
+    <!-- Footer End-->
 </footer>
-<!-- ========================= FOOTER END // ========================= -->

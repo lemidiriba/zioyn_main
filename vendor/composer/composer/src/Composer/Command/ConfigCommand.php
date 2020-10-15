@@ -463,19 +463,13 @@ EOT
                 $this->getIO()->writeError('<info>You are now running Composer with SSL/TLS protection enabled.</info>');
             }
 
-            $this->configSource->removeConfigSetting($settingKey);
-
-            return 0;
+            return $this->configSource->removeConfigSetting($settingKey);
         }
         if (isset($uniqueConfigValues[$settingKey])) {
-            $this->handleSingleValue($settingKey, $uniqueConfigValues[$settingKey], $values, 'addConfigSetting');
-
-            return 0;
+            return $this->handleSingleValue($settingKey, $uniqueConfigValues[$settingKey], $values, 'addConfigSetting');
         }
         if (isset($multiConfigValues[$settingKey])) {
-            $this->handleMultiValue($settingKey, $multiConfigValues[$settingKey], $values, 'addConfigSetting');
-
-            return 0;
+            return $this->handleMultiValue($settingKey, $multiConfigValues[$settingKey], $values, 'addConfigSetting');
         }
 
         // handle properties
@@ -536,51 +530,38 @@ EOT
             throw new \InvalidArgumentException('The '.$settingKey.' property can not be set in the global config.json file. Use `composer global config` to apply changes to the global composer.json');
         }
         if ($input->getOption('unset') && (isset($uniqueProps[$settingKey]) || isset($multiProps[$settingKey]))) {
-            $this->configSource->removeProperty($settingKey);
-
-            return 0;
+            return $this->configSource->removeProperty($settingKey);
         }
         if (isset($uniqueProps[$settingKey])) {
-            $this->handleSingleValue($settingKey, $uniqueProps[$settingKey], $values, 'addProperty');
-
-            return 0;
+            return $this->handleSingleValue($settingKey, $uniqueProps[$settingKey], $values, 'addProperty');
         }
         if (isset($multiProps[$settingKey])) {
-            $this->handleMultiValue($settingKey, $multiProps[$settingKey], $values, 'addProperty');
-
-            return 0;
+            return $this->handleMultiValue($settingKey, $multiProps[$settingKey], $values, 'addProperty');
         }
 
         // handle repositories
         if (preg_match('/^repos?(?:itories)?\.(.+)/', $settingKey, $matches)) {
             if ($input->getOption('unset')) {
-                $this->configSource->removeRepository($matches[1]);
-
-                return 0;
+                return $this->configSource->removeRepository($matches[1]);
             }
 
             if (2 === count($values)) {
-                $this->configSource->addRepository($matches[1], array(
+                return $this->configSource->addRepository($matches[1], array(
                     'type' => $values[0],
                     'url' => $values[1],
                 ));
-
-                return 0;
             }
 
             if (1 === count($values)) {
                 $value = strtolower($values[0]);
                 if (true === $booleanValidator($value)) {
                     if (false === $booleanNormalizer($value)) {
-                        $this->configSource->addRepository($matches[1], false);
-
-                        return 0;
+                        return $this->configSource->addRepository($matches[1], false);
                     }
                 } else {
                     $value = JsonFile::parseJson($values[0]);
-                    $this->configSource->addRepository($matches[1], $value);
 
-                    return 0;
+                    return $this->configSource->addRepository($matches[1], $value);
                 }
             }
 
@@ -590,32 +571,22 @@ EOT
         // handle extra
         if (preg_match('/^extra\.(.+)/', $settingKey, $matches)) {
             if ($input->getOption('unset')) {
-                $this->configSource->removeProperty($settingKey);
-
-                return 0;
+                return $this->configSource->removeProperty($settingKey);
             }
 
-            $this->configSource->addProperty($settingKey, $values[0]);
-
-            return 0;
+            return $this->configSource->addProperty($settingKey, $values[0]);
         }
 
         // handle platform
         if (preg_match('/^platform\.(.+)/', $settingKey, $matches)) {
             if ($input->getOption('unset')) {
-                $this->configSource->removeConfigSetting($settingKey);
-
-                return 0;
+                return $this->configSource->removeConfigSetting($settingKey);
             }
 
-            $this->configSource->addConfigSetting($settingKey, $values[0]);
-
-            return 0;
+            return $this->configSource->addConfigSetting($settingKey, $values[0]);
         }
         if ($settingKey === 'platform' && $input->getOption('unset')) {
-            $this->configSource->removeConfigSetting($settingKey);
-
-            return 0;
+            return $this->configSource->removeConfigSetting($settingKey);
         }
 
         // handle auth
@@ -624,7 +595,7 @@ EOT
                 $this->authConfigSource->removeConfigSetting($matches[1].'.'.$matches[2]);
                 $this->configSource->removeConfigSetting($matches[1].'.'.$matches[2]);
 
-                return 0;
+                return;
             }
 
             if ($matches[1] === 'bitbucket-oauth') {
@@ -647,20 +618,16 @@ EOT
                 $this->authConfigSource->addConfigSetting($matches[1].'.'.$matches[2], array('username' => $values[0], 'password' => $values[1]));
             }
 
-            return 0;
+            return;
         }
 
         // handle script
         if (preg_match('/^scripts\.(.+)/', $settingKey, $matches)) {
             if ($input->getOption('unset')) {
-                $this->configSource->removeProperty($settingKey);
-
-                return 0;
+                return $this->configSource->removeProperty($settingKey);
             }
 
-            $this->configSource->addProperty($settingKey, count($values) > 1 ? $values : $values[0]);
-
-            return 0;
+            return $this->configSource->addProperty($settingKey, count($values) > 1 ? $values : $values[0]);
         }
 
         throw new \InvalidArgumentException('Setting '.$settingKey.' does not exist or is not supported by this command');

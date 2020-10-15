@@ -78,8 +78,9 @@ class Foo {
     }
 
     /**
-     * @param int  $classOpenIndex
-     * @param bool $classIsFinal
+     * @param Tokens $tokens
+     * @param int    $classOpenIndex
+     * @param bool   $classIsFinal
      */
     private function fixClass(Tokens $tokens, $classOpenIndex, $classIsFinal)
     {
@@ -115,8 +116,9 @@ class Foo {
     }
 
     /**
-     * @param int $index
-     * @param int $classOpenIndex
+     * @param Tokens $tokens
+     * @param int    $index
+     * @param int    $classOpenIndex
      *
      * @return bool
      */

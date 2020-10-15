@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Spatie\WebTinker\Console\InstallCommand;
-use Illuminate\Session\Middleware\StartSession;
 use Spatie\WebTinker\Http\Middleware\Authorize;
-use Illuminate\Cookie\Middleware\EncryptCookies;
 use Spatie\WebTinker\OutputModifiers\OutputModifier;
 use Spatie\WebTinker\Http\Controllers\WebTinkerController;
 
@@ -48,11 +46,7 @@ class WebTinkerServiceProvider extends ServiceProvider
 
     protected function registerRoutes()
     {
-        Route::prefix(config('web-tinker.path'))->middleware([
-            EncryptCookies::class,
-            StartSession::class,
-            Authorize::class,
-        ])->group(function () {
+        Route::prefix(config('web-tinker.path'))->middleware(Authorize::class)->group(function () {
             Route::get('/', [WebTinkerController::class, 'index']);
             Route::post('/', [WebTinkerController::class, 'execute']);
         });

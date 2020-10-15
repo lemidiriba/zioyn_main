@@ -58,6 +58,8 @@ final class ReporterFactory
     }
 
     /**
+     * @param ReporterInterface $reporter
+     *
      * @return $this
      */
     public function registerReporter(ReporterInterface $reporter)

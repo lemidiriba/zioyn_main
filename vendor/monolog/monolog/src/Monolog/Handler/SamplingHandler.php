@@ -11,8 +11,6 @@
 
 namespace Monolog\Handler;
 
-use Monolog\Formatter\FormatterInterface;
-
 /**
  * Sampling handler
  *
@@ -27,7 +25,7 @@ use Monolog\Formatter\FormatterInterface;
  * @author Bryan Davis <bd808@wikimedia.org>
  * @author Kunal Mehta <legoktm@gmail.com>
  */
-class SamplingHandler extends AbstractHandler implements ProcessableHandlerInterface, FormattableHandlerInterface
+class SamplingHandler extends AbstractHandler implements ProcessableHandlerInterface
 {
     use ProcessableHandlerTrait;
 
@@ -42,7 +40,7 @@ class SamplingHandler extends AbstractHandler implements ProcessableHandlerInter
     protected $factor;
 
     /**
-     * @param callable|HandlerInterface $handler Handler or factory callable($record|null, $samplingHandler).
+     * @param callable|HandlerInterface $handler Handler or factory callable($record, $fingersCrossedHandler).
      * @param int                       $factor  Sample factor (e.g. 10 means every ~10th record is sampled)
      */
     public function __construct($handler, int $factor)
@@ -58,56 +56,27 @@ class SamplingHandler extends AbstractHandler implements ProcessableHandlerInter
 
     public function isHandling(array $record): bool
     {
-        return $this->getHandler($record)->isHandling($record);
+        return $this->handler->isHandling($record);
     }
 
     public function handle(array $record): bool
     {
         if ($this->isHandling($record) && mt_rand(1, $this->factor) === 1) {
+            // The same logic as in FingersCrossedHandler
+            if (!$this->handler instanceof HandlerInterface) {
+                $this->handler = call_user_func($this->handler, $record, $this);
+                if (!$this->handler instanceof HandlerInterface) {
+                    throw new \RuntimeException("The factory callable should return a HandlerInterface");
+                }
+            }
+
             if ($this->processors) {
                 $record = $this->processRecord($record);
             }
 
-            $this->getHandler($record)->handle($record);
+            $this->handler->handle($record);
         }
 
         return false === $this->bubble;
-    }
-
-    /**
-     * Return the nested handler
-     *
-     * If the handler was provided as a factory callable, this will trigger the handler's instantiation.
-     *
-     * @return HandlerInterface
-     */
-    public function getHandler(array $record = null)
-    {
-        if (!$this->handler instanceof HandlerInterface) {
-            $this->handler = call_user_func($this->handler, $record, $this);
-            if (!$this->handler instanceof HandlerInterface) {
-                throw new \RuntimeException("The factory callable should return a HandlerInterface");
-            }
-        }
-
-        return $this->handler;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setFormatter(FormatterInterface $formatter): HandlerInterface
-    {
-        $this->getHandler()->setFormatter($formatter);
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFormatter(): FormatterInterface
-    {
-        return $this->getHandler()->getFormatter();
     }
 }

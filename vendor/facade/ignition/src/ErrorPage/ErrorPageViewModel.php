@@ -109,14 +109,10 @@ class ErrorPageViewModel implements Arrayable
         return $solutions;
     }
 
-    protected function shareEndpoint(): string
+    protected function shareEndpoint()
     {
-        try {
-            // use string notation as L5.5 and L5.6 don't support array notation yet
-            return action('\Facade\Ignition\Http\Controllers\ShareReportController');
-        } catch (Exception $exception) {
-            return '';
-        }
+        // use string notation as L5.5 and L5.6 don't support array notation yet
+        return action('\Facade\Ignition\Http\Controllers\ShareReportController');
     }
 
     public function report(): array

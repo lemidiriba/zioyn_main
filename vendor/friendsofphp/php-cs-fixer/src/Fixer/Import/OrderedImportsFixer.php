@@ -333,7 +333,8 @@ use Bar;
     }
 
     /**
-     * @param int[] $uses
+     * @param int[]  $uses
+     * @param Tokens $tokens
      *
      * @return array
      */

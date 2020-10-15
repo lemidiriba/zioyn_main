@@ -23,8 +23,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(AuthTableSeeder::class);
-        $this->call(ShopCategorySeeder::class);
-
+        $this->call(MinistryOfEducationTableSeeder::class);
 
         Model::reguard();
     }

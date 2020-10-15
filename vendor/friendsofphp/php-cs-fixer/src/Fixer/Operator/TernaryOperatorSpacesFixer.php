@@ -89,8 +89,9 @@ final class TernaryOperatorSpacesFixer extends AbstractFixer
     }
 
     /**
-     * @param int  $index
-     * @param bool $after
+     * @param Tokens $tokens
+     * @param int    $index
+     * @param bool   $after
      */
     private function ensureWhitespaceExistence(Tokens $tokens, $index, $after)
     {

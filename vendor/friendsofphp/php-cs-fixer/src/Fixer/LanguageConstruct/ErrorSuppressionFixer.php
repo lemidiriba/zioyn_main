@@ -153,7 +153,8 @@ final class ErrorSuppressionFixer extends AbstractFixer implements Configuration
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return bool
      */

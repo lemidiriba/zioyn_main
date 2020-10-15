@@ -32,7 +32,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class PhpdocToReturnTypeFixer extends AbstractFixer implements ConfigurationDefinitionFixerInterface
 {
     /**
-     * @var array<array<int, string>>
+     * @var array
      */
     private $blacklistFuncNames = [
         [T_STRING, '__construct'],
@@ -41,7 +41,7 @@ final class PhpdocToReturnTypeFixer extends AbstractFixer implements Configurati
     ];
 
     /**
-     * @var array<string, int>
+     * @var array
      */
     private $versionSpecificTypes = [
         'void' => 70100,
@@ -50,19 +50,17 @@ final class PhpdocToReturnTypeFixer extends AbstractFixer implements Configurati
     ];
 
     /**
-     * @var array<string, string>
+     * @var array
      */
     private $scalarTypes = [
-        'bool' => 'bool',
-        'true' => 'bool',
-        'false' => 'bool',
-        'float' => 'float',
-        'int' => 'int',
-        'string' => 'string',
+        'bool' => true,
+        'float' => true,
+        'int' => true,
+        'string' => true,
     ];
 
     /**
-     * @var array<string, bool>
+     * @var array
      */
     private $skippedTypes = [
         'mixed' => true,
@@ -121,10 +119,6 @@ function my_foo()
      */
     public function isCandidate(Tokens $tokens)
     {
-        if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(T_FN)) {
-            return true;
-        }
-
         return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(T_FUNCTION);
     }
 
@@ -133,9 +127,9 @@ function my_foo()
      */
     public function getPriority()
     {
-        // should be run after PhpdocScalarFixer and PhpdocTypes.
+        // should be run after PhpdocScalarFixer.
         // should be run before ReturnTypeDeclarationFixer, FullyQualifiedStrictTypesFixer, NoSuperfluousPhpdocTagsFixer.
-        return 13;
+        return 8;
     }
 
     /**
@@ -165,10 +159,7 @@ function my_foo()
     protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; 0 < $index; --$index) {
-            if (
-                !$tokens[$index]->isGivenKind(T_FUNCTION)
-                && (\PHP_VERSION_ID < 70400 || !$tokens[$index]->isGivenKind(T_FN))
-            ) {
+            if (!$tokens[$index]->isGivenKind(T_FUNCTION)) {
                 continue;
             }
 
@@ -181,18 +172,15 @@ function my_foo()
             if (1 !== \count($returnTypeAnnotation)) {
                 continue;
             }
-
             $returnTypeAnnotation = current($returnTypeAnnotation);
             $types = array_values($returnTypeAnnotation->getTypes());
             $typesCount = \count($types);
-
             if (1 > $typesCount || 2 < $typesCount) {
                 continue;
             }
 
             $isNullable = false;
             $returnType = current($types);
-
             if (2 === $typesCount) {
                 $null = $types[0];
                 $returnType = $types[1];
@@ -228,20 +216,16 @@ function my_foo()
                 continue;
             }
 
-            if (isset($this->scalarTypes[$returnType])) {
-                if (false === $this->configuration['scalar_types']) {
-                    continue;
-                }
+            if (isset($this->scalarTypes[$returnType]) && false === $this->configuration['scalar_types']) {
+                continue;
+            }
 
-                $returnType = $this->scalarTypes[$returnType];
-            } else {
-                if (1 !== Preg::match($this->classRegex, $returnType, $matches)) {
-                    continue;
-                }
+            if (1 !== Preg::match($this->classRegex, $returnType, $matches)) {
+                continue;
+            }
 
-                if (isset($matches['array'])) {
-                    $returnType = 'array';
-                }
+            if (isset($matches['array'])) {
+                $returnType = 'array';
             }
 
             $startIndex = $tokens->getNextTokenOfKind($index, ['{', ';']);
@@ -257,7 +241,8 @@ function my_foo()
     /**
      * Determine whether the function already has a return type hint.
      *
-     * @param int $index The index of the end of the function definition line, EG at { or ;
+     * @param Tokens $tokens
+     * @param int    $index  The index of the end of the function definition line, EG at { or ;
      *
      * @return bool
      */
@@ -270,6 +255,7 @@ function my_foo()
     }
 
     /**
+     * @param Tokens $tokens
      * @param int    $index      The index of the end of the function definition line, EG at { or ;
      * @param bool   $isNullable
      * @param string $returnType
@@ -310,7 +296,8 @@ function my_foo()
     /**
      * Find all the return annotations in the function's PHPDoc comment.
      *
-     * @param int $index The index of the function token
+     * @param Tokens $tokens
+     * @param int    $index  The index of the function token
      *
      * @return Annotation[]
      */

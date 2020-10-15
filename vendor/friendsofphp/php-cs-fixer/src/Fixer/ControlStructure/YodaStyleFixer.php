@@ -235,6 +235,8 @@ return $foo === count($bar);
     }
 
     /**
+     * @param Tokens $tokens
+     *
      * @return Tokens
      */
     private function fixTokens(Tokens $tokens)
@@ -280,11 +282,12 @@ return $foo === count($bar);
      * If the left-hand side and right-hand side of the given comparison are
      * swapped, this function runs recursively on the previous left-hand-side.
      *
-     * @param int $startLeft
-     * @param int $endLeft
-     * @param int $compareOperatorIndex
-     * @param int $startRight
-     * @param int $endRight
+     * @param Tokens $tokens
+     * @param int    $startLeft
+     * @param int    $endLeft
+     * @param int    $compareOperatorIndex
+     * @param int    $startRight
+     * @param int    $endRight
      *
      * @return int a upper bound for all non-fixed comparisons
      */
@@ -322,8 +325,9 @@ return $foo === count($bar);
     }
 
     /**
-     * @param int $start
-     * @param int $end
+     * @param Tokens $tokens
+     * @param int    $start
+     * @param int    $end
      *
      * @return Tokens
      */
@@ -339,8 +343,9 @@ return $foo === count($bar);
     }
 
     /**
-     * @param int  $index
-     * @param bool $yoda
+     * @param Tokens $tokens
+     * @param int    $index
+     * @param bool   $yoda
      *
      * @return null|array
      */
@@ -386,7 +391,8 @@ return $foo === count($bar);
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return array
      */
@@ -399,7 +405,8 @@ return $foo === count($bar);
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      *
      * @return array
      */
@@ -412,8 +419,9 @@ return $foo === count($bar);
     }
 
     /**
-     * @param int $index
-     * @param int $end
+     * @param Tokens $tokens
+     * @param int    $index
+     * @param int    $end
      *
      * @return bool
      */

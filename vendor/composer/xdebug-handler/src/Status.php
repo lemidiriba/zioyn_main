@@ -151,13 +151,13 @@ class Status
     }
 
     /**
-     * Returns the Xdebug status and version
+     * Returns the xdebug status and version
      *
      * @return string
      */
     private function getLoadedMessage()
     {
         $loaded = $this->loaded ? sprintf('loaded (%s)', $this->loaded) : 'not loaded';
-        return 'The Xdebug extension is '.$loaded;
+        return 'The xdebug extension is '.$loaded;
     }
 }

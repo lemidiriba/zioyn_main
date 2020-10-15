@@ -10,7 +10,6 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.js('resources/js/frontend/app.js', 'public/js/vueapp.js');
 
 mix.setPublicPath('../public_html')
     .setResourceRoot('../') // Turns assets paths in css relative to css file
@@ -32,8 +31,7 @@ mix.setPublicPath('../public_html')
         'popper.js',
         'axios',
         'sweetalert2',
-        'lodash',
-        'sweetalert'
+        'lodash'
     ])
     .sourceMaps();
 
@@ -52,7 +50,4 @@ if (mix.inProduction()) {
     mix.webpackConfig({
         devtool: 'inline-source-map'
     });
-}
-module: {
-    noParse: /(mapbox-gl)\.js$/
 }

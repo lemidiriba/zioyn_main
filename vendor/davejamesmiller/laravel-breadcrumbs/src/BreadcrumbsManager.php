@@ -205,8 +205,6 @@ class BreadcrumbsManager
     {
         $breadcrumbs = $this->generate($name, ...$params);
 
-        // TODO: After dropping support for Laravel 5.8 and below, change this to return the view directly
-        // https://github.com/laravel/framework/pull/29600
         $html = $this->viewFactory->make($view, compact('breadcrumbs'))->render();
 
         return new HtmlString($html);
@@ -242,7 +240,7 @@ class BreadcrumbsManager
      * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if the current route doesn't have an associated name.
      * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      */
-    public function current(): ?\stdClass
+    public function current()
     {
         return $this->generate()->where('current', '!==', false)->last();
     }

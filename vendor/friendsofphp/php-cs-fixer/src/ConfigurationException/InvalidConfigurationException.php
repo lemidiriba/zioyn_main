@@ -25,8 +25,9 @@ use PhpCsFixer\Console\Command\FixCommandExitStatusCalculator;
 class InvalidConfigurationException extends \InvalidArgumentException
 {
     /**
-     * @param string   $message
-     * @param null|int $code
+     * @param string          $message
+     * @param null|int        $code
+     * @param null|\Exception $previous
      */
     public function __construct($message, $code = null, \Exception $previous = null)
     {

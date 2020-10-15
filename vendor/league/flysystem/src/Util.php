@@ -291,13 +291,13 @@ class Util
             $listedDirectories[] = $object['path'];
         }
 
-        if ( ! isset($object['dirname']) || trim($object['dirname']) === '') {
+        if (empty($object['dirname'])) {
             return [$directories, $listedDirectories];
         }
 
         $parent = $object['dirname'];
 
-        while (isset($parent) && trim($parent) !== '' && ! in_array($parent, $directories)) {
+        while ( ! empty($parent) && ! in_array($parent, $directories)) {
             $directories[] = $parent;
             $parent = static::dirname($parent);
         }

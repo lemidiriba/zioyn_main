@@ -11,8 +11,6 @@ use Altek\Accountant\Contracts\Recordable;
 use Altek\Accountant\Exceptions\AccountantException;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 
@@ -39,9 +37,7 @@ trait Ledger
     {
         $userPrefix = Config::get('accountant.user.prefix');
 
-        $relation = $this->morphTo($userPrefix, $userPrefix.'_type', $userPrefix.'_id');
-
-        return $this->resolveTrashedRelation($relation);
+        return $this->morphTo($userPrefix, $userPrefix.'_type', $userPrefix.'_id');
     }
 
     /**
@@ -49,25 +45,7 @@ trait Ledger
      */
     public function recordable()
     {
-        return $this->resolveTrashedRelation($this->morphTo());
-    }
-
-    /**
-     * Trashed relation resolver.
-     *
-     * @param MorphTo $relation
-     *
-     * @return MorphTo
-     */
-    protected function resolveTrashedRelation(MorphTo $relation): MorphTo
-    {
-        $traits = class_uses_recursive($relation->getRelated());
-
-        if (\in_array(SoftDeletes::class, $traits, true)) {
-            return $relation->withTrashed();
-        }
-
-        return $relation;
+        return $this->morphTo();
     }
 
     /**

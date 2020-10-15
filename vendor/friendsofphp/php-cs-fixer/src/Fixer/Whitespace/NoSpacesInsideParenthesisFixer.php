@@ -95,7 +95,8 @@ function foo( \$bar, \$baz )
     /**
      * Remove spaces from token at a given index.
      *
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      */
     private function removeSpaceAroundToken(Tokens $tokens, $index)
     {

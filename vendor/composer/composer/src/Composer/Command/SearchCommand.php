@@ -79,7 +79,5 @@ EOT
         foreach ($results as $result) {
             $io->write($result['name'] . (isset($result['description']) ? ' '. $result['description'] : ''));
         }
-
-        return 0;
     }
 }

@@ -70,7 +70,5 @@ EOT
         }
 
         $io->writeError('<info>All caches cleared.</info>');
-
-        return 0;
     }
 }

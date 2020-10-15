@@ -101,7 +101,8 @@ final class ConcatSpaceFixer extends AbstractFixer implements ConfigurationDefin
     }
 
     /**
-     * @param int $index index of concatenation '.' token
+     * @param Tokens $tokens
+     * @param int    $index  index of concatenation '.' token
      */
     private function fixConcatenationToNoSpace(Tokens $tokens, $index)
     {
@@ -116,7 +117,8 @@ final class ConcatSpaceFixer extends AbstractFixer implements ConfigurationDefin
     }
 
     /**
-     * @param int $index index of concatenation '.' token
+     * @param Tokens $tokens
+     * @param int    $index  index of concatenation '.' token
      */
     private function fixConcatenationToSingleSpace(Tokens $tokens, $index)
     {
@@ -125,8 +127,9 @@ final class ConcatSpaceFixer extends AbstractFixer implements ConfigurationDefin
     }
 
     /**
-     * @param int $index  index of concatenation '.' token
-     * @param int $offset 1 or -1
+     * @param Tokens $tokens
+     * @param int    $index  index of concatenation '.' token
+     * @param int    $offset 1 or -1
      */
     private function fixWhiteSpaceAroundConcatToken(Tokens $tokens, $index, $offset)
     {

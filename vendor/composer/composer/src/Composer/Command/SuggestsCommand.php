@@ -118,7 +118,7 @@ EOT
                 $io->write(sprintf('<info>%s</info>', $suggestion));
             }
 
-            return 0;
+            return;
         }
 
         // Grouped by package
@@ -148,7 +148,5 @@ EOT
                 $io->write('');
             }
         }
-
-        return 0;
     }
 }

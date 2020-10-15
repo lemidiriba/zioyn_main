@@ -214,7 +214,8 @@ echo 1;
     }
 
     /**
-     * @param int $headerNewIndex
+     * @param Tokens $tokens
+     * @param int    $headerNewIndex
      *
      * @return null|int
      */
@@ -227,6 +228,8 @@ echo 1;
 
     /**
      * Find the index where the header comment must be inserted.
+     *
+     * @param Tokens $tokens
      *
      * @return int
      */
@@ -280,7 +283,8 @@ echo 1;
     }
 
     /**
-     * @param int $headerIndex
+     * @param Tokens $tokens
+     * @param int    $headerIndex
      */
     private function fixWhiteSpaceAroundHeader(Tokens $tokens, $headerIndex)
     {
@@ -325,8 +329,9 @@ echo 1;
     }
 
     /**
-     * @param int $indexStart
-     * @param int $indexEnd
+     * @param Tokens $tokens
+     * @param int    $indexStart
+     * @param int    $indexEnd
      *
      * @return int
      */
@@ -341,7 +346,8 @@ echo 1;
     }
 
     /**
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      */
     private function insertHeader(Tokens $tokens, $index)
     {

@@ -95,8 +95,7 @@ class PasswordBrokerManager implements FactoryContract
             $this->app['hash'],
             $config['table'],
             $key,
-            $config['expire'],
-            $config['throttle'] ?? 0
+            $config['expire']
         );
     }
 
@@ -136,7 +135,7 @@ class PasswordBrokerManager implements FactoryContract
      * Dynamically call the default driver instance.
      *
      * @param  string  $method
-     * @param  array  $parameters
+     * @param  array   $parameters
      * @return mixed
      */
     public function __call($method, $parameters)

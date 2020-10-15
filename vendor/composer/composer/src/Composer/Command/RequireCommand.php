@@ -99,9 +99,7 @@ EOT
 
             return 1;
         }
-        // check for readability by reading the file as is_readable can not be trusted on network-mounts
-        // see https://github.com/composer/composer/issues/8231 and https://bugs.php.net/bug.php?id=68926
-        if (!is_readable($this->file) && false === Silencer::call('file_get_contents', $this->file)) {
+        if (!is_readable($this->file)) {
             $io->writeError('<error>'.$this->file.' is not readable.</error>');
 
             return 1;
@@ -139,15 +137,7 @@ EOT
         }
 
         $phpVersion = $this->repos->findPackage('php', '*')->getPrettyVersion();
-        try {
-            $requirements = $this->determineRequirements($input, $output, $input->getArgument('packages'), $phpVersion, $preferredStability, !$input->getOption('no-update'));
-        } catch (\Exception $e) {
-            if ($this->newlyCreated) {
-                throw new \RuntimeException('No composer.json present in the current directory, this may be the cause of the following exception.', 0, $e);
-            }
-
-            throw $e;
-        }
+        $requirements = $this->determineRequirements($input, $output, $input->getArgument('packages'), $phpVersion, $preferredStability, !$input->getOption('no-update'));
 
         $requireKey = $input->getOption('dev') ? 'require-dev' : 'require';
         $removeKey = $input->getOption('dev') ? 'require' : 'require-dev';

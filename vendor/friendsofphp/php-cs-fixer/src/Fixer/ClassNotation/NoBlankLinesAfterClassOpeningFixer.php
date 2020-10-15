@@ -77,7 +77,8 @@ final class Sample
     /**
      * Cleanup a whitespace token.
      *
-     * @param int $index
+     * @param Tokens $tokens
+     * @param int    $index
      */
     private function fixWhitespace(Tokens $tokens, $index)
     {

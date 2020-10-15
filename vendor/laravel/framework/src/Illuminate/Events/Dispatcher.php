@@ -442,10 +442,8 @@ class Dispatcher implements DispatcherContract
      */
     protected function handlerWantsToBeQueued($class, $arguments)
     {
-        $instance = $this->container->make($class);
-
-        if (method_exists($instance, 'shouldQueue')) {
-            return $instance->shouldQueue($arguments[0]);
+        if (method_exists($class, 'shouldQueue')) {
+            return $this->container->make($class)->shouldQueue($arguments[0]);
         }
 
         return true;
@@ -502,7 +500,6 @@ class Dispatcher implements DispatcherContract
     {
         return tap($job, function ($job) use ($listener) {
             $job->tries = $listener->tries ?? null;
-            $job->retryAfter = $listener->retryAfter ?? null;
             $job->timeout = $listener->timeout ?? null;
             $job->timeoutAt = method_exists($listener, 'retryUntil')
                                 ? $listener->retryUntil() : null;

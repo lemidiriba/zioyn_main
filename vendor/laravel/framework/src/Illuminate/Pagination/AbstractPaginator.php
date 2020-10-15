@@ -173,9 +173,9 @@ abstract class AbstractPaginator implements Htmlable
         }
 
         return $this->path()
-                        .(Str::contains($this->path(), '?') ? '&' : '?')
-                        .Arr::query($parameters)
-                        .$this->buildFragment();
+            . (Str::contains($this->path(), '?') ? '&' : '?')
+            . Arr::query($parameters)
+            . $this->buildFragment();
     }
 
     /**
@@ -253,13 +253,13 @@ abstract class AbstractPaginator implements Htmlable
      */
     protected function buildFragment()
     {
-        return $this->fragment ? '#'.$this->fragment : '';
+        return $this->fragment ? '#' . $this->fragment : '';
     }
 
     /**
      * Load a set of relationships onto the mixed relationship collection.
      *
-     * @param  string  $relation
+     * @param  string $relation
      * @param  array  $relations
      * @return $this
      */

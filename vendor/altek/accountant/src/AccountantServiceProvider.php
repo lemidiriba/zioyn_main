@@ -59,7 +59,7 @@ class AccountantServiceProvider extends ServiceProvider
             AccountantUserResolverCommand::class,
         ]);
 
-        $this->app->singleton(Accountant::class, static function ($app) {
+        $this->app->singleton(Accountant::class, function ($app) {
             return new \Altek\Accountant\Accountant($app);
         });
     }

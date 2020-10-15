@@ -232,7 +232,6 @@ class GeoIP
         $remotes_keys = [
             'HTTP_X_FORWARDED_FOR',
             'HTTP_CLIENT_IP',
-            'HTTP_X_REAL_IP',
             'HTTP_X_FORWARDED',
             'HTTP_FORWARDED_FOR',
             'HTTP_FORWARDED',

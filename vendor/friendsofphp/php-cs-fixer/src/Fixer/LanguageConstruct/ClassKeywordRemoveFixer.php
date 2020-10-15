@@ -71,7 +71,8 @@ $className = Baz::class;
      *
      * It uses recursive method to get rid of token index changes.
      *
-     * @param int $namespaceNumber
+     * @param Tokens $tokens
+     * @param int    $namespaceNumber
      */
     private function replaceClassKeywords(Tokens $tokens, $namespaceNumber = -1)
     {
@@ -100,8 +101,9 @@ $className = Baz::class;
     }
 
     /**
-     * @param int $startIndex
-     * @param int $endIndex
+     * @param Tokens $tokens
+     * @param int    $startIndex
+     * @param int    $endIndex
      */
     private function storeImports(Tokens $tokens, $startIndex, $endIndex)
     {
@@ -152,28 +154,27 @@ $className = Baz::class;
     }
 
     /**
-     * @param int $startIndex
-     * @param int $endIndex
+     * @param Tokens $tokens
+     * @param int    $startIndex
+     * @param int    $endIndex
      */
     private function replaceClassKeywordsSection(Tokens $tokens, $startIndex, $endIndex)
     {
         $ctClassTokens = $tokens->findGivenKind(CT::T_CLASS_CONSTANT, $startIndex, $endIndex);
-        foreach (array_reverse(array_keys($ctClassTokens)) as $classIndex) {
-            $this->replaceClassKeyword($tokens, $classIndex);
+        if (!empty($ctClassTokens)) {
+            $this->replaceClassKeyword($tokens, current(array_keys($ctClassTokens)));
+            $this->replaceClassKeywordsSection($tokens, $startIndex, $endIndex);
         }
     }
 
     /**
-     * @param int $classIndex
+     * @param Tokens $tokens
+     * @param int    $classIndex
      */
     private function replaceClassKeyword(Tokens $tokens, $classIndex)
     {
         $classEndIndex = $tokens->getPrevMeaningfulToken($classIndex);
         $classEndIndex = $tokens->getPrevMeaningfulToken($classEndIndex);
-
-        if ($tokens[$classEndIndex]->equalsAny([[T_STRING, 'self'], [T_STATIC, 'static'], [T_STRING, 'parent']], false)) {
-            return;
-        }
 
         $classBeginIndex = $classEndIndex;
         while (true) {

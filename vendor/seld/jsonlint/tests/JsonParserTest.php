@@ -35,10 +35,6 @@ class JsonParserTest extends TestCase
         '{"a":"b", "b":"c"}',
         '0',
         '""',
-        '"\u0022"',
-        '"Argument \u0022input\u0022 has an invalid value: ..."',
-        '"👻"',
-        '"\u1f47d"',
     );
 
     /**

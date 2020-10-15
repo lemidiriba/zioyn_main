@@ -103,7 +103,8 @@ switch ($foo) {
     }
 
     /**
-     * @param int $casePosition
+     * @param Tokens $tokens
+     * @param int    $casePosition
      */
     private function fixCase(Tokens $tokens, $casePosition)
     {
@@ -171,6 +172,8 @@ switch ($foo) {
     }
 
     /**
+     * @param Token $token
+     *
      * @return bool
      */
     private function isNoBreakComment(Token $token)
@@ -185,7 +188,8 @@ switch ($foo) {
     }
 
     /**
-     * @param int $casePosition
+     * @param Tokens $tokens
+     * @param int    $casePosition
      */
     private function insertCommentAt(Tokens $tokens, $casePosition)
     {
@@ -220,7 +224,8 @@ switch ($foo) {
     }
 
     /**
-     * @param int $position
+     * @param Tokens $tokens
+     * @param int    $position
      *
      * @return int The newline token position
      */
@@ -259,7 +264,8 @@ switch ($foo) {
     }
 
     /**
-     * @param int $commentPosition
+     * @param Tokens $tokens
+     * @param int    $commentPosition
      */
     private function removeComment(Tokens $tokens, $commentPosition)
     {
@@ -285,7 +291,8 @@ switch ($foo) {
     }
 
     /**
-     * @param int $position
+     * @param Tokens $tokens
+     * @param int    $position
      *
      * @return string
      */
@@ -314,7 +321,8 @@ switch ($foo) {
     }
 
     /**
-     * @param int $position
+     * @param Tokens $tokens
+     * @param int    $position
      *
      * @return int
      */

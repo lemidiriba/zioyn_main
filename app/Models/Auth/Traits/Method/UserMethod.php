@@ -99,4 +99,13 @@ trait UserMethod
     {
         return config('access.users.requires_approval') && ! $this->confirmed;
     }
+    
+    public function canManageBlogEtcPosts(){
+        
+        if(Auth::check() && Auth::user()->isAdmin()) {
+            return $this->id ===1;
+        
+        }
+        
+    }
 }
